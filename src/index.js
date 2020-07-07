@@ -87,6 +87,7 @@ program
   .arguments( '<file>' )
   .option( '-d --destination <destination>', 'Destination path' )
   .option( '-e --exact', 'Add exact types' )
+  .option( '--responses', 'Also generate types for operation responses (with titles)' )
   .option( '--suffix <suffix>', 'Add suffix (like "Type") to all generated types' )
   .option(
     '-l --lower-camel-case',
