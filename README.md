@@ -8,37 +8,37 @@
 
 ## Getting started
 
-#### Install package
+### Install package
 
 `npm i -g openapi-to-flowtype`
 
-#### Generating flow type definitions
+### Generating flow type definitions
 
 `$openapi-to-flowtype <YOUR SWAGGER FILE OR URL>`
 
 This command generates a file named **flowtype.js** includes type definitions as default.  
 
-##### Options
+## Options
 
-*`Specify an output path`*
+### Specify an output path
 
 You can also specify an output path with `-d option`.
 
 `$openapi-to-flowtype <YOUR SWAGGER FILE PATH OR URL> -d <OUTPUT FILE PATH>`
 
-*`Generate types for operation titled responses as well`*
+### Generate types for operation titled responses as well
 
-You can enable type generation for operation responses (if the have schema title specified) with `--responses`.
+You can enable type generation for operation responses (if they have schema title specified) with `--responses`.
 
 `$openapi-to-flowtype <YOUR SWAGGER FILE PATH OR URL> --responses`
 
-*`Specify a suffix for generated types`*
+### Specify a suffix for generated types
 
 You can specify a suffix for all generated types with `--suffix <suffix>`.
 
 `$openapi-to-flowtype <YOUR SWAGGER FILE PATH OR URL> -suffix <YOUR SUFFIX>`
 
-*`Transform property key to lower camel case`*
+### Transform property key to lower camel case
 
 `--lower-camel-case` option transforms each property keys to lower camel case.
 
