@@ -2,6 +2,8 @@
 
 import camelize from 'camelize';
 
+const EMPTY_OBJECT : any = {};
+
 // OpenAPI data types are base on types supported by the JSON-Scheme Draft4.
 const typeMapping = {
   array: 'Array<*>',
@@ -52,15 +54,20 @@ export default class Generator {
 
   generateImpl( specification : any ) : string {
     const toProcess : Map< string, any > = new Map();
-    for ( const [ key, schema ] of Object.entries( ( ( specification || {} ).components || {} ).schemas || {} ) ) {
+    for ( const [ key, schema ] of Object.entries( ( ( specification || EMPTY_OBJECT ).components || EMPTY_OBJECT ).schemas || EMPTY_OBJECT ) ) {
       toProcess.set( key, schema );
     }
 
     if ( this.responses ) {
-      for ( const byPath of Object.values( specification.paths || {} ) ) {
+      // $FlowFixMe
+      for ( const byPath of Object.values( specification.paths || EMPTY_OBJECT ) ) {
+        // $FlowFixMe
         for ( const byMethod of Object.values( byPath ) ) {
-          for ( const byReturnCode of Object.values( byMethod.responses || {} ) ) {
-            for ( const byMime of Object.values( byReturnCode.content || {} ) ) {
+          // $FlowFixMe
+          for ( const byReturnCode of Object.values( byMethod.responses || EMPTY_OBJECT ) ) {
+            // $FlowFixMe
+            for ( const byMime of Object.values( byReturnCode.content || EMPTY_OBJECT ) ) {
+              // $FlowFixMe
               const { schema } = byMime;
               if ( !schema ) continue;
               if ( !schema.title ) continue;
@@ -103,7 +110,7 @@ export default class Generator {
       !definition.properties ||
       Object.keys( definition.properties ).length === 0
     ) {
-      return {};
+      return EMPTY_OBJECT;
     }
 
     // TODO: change to ES6
