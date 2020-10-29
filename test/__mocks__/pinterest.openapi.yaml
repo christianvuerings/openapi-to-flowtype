@@ -1,0 +1,1286 @@
+components:
+  examples:
+    pin_names_and_board_title:
+      summary: Fetch only pin names, board title
+      value: pin.first_name,pin.last_name,board.title
+  parameters:
+    add_fields:
+      allowReserved: true
+      description: A list of attributes of objects to be added to the response ex.
+        pin.id and "Joins" which is a way to specify additional data fetches ex. add_fields=pin.pinner(),pin.recommendation_reason,pin.place_summary(),interest.images[150x150(ir.24),150x150(ir.48),1200x,236x].
+        If left empty summary fields will be returned by default.
+      explode: false
+      in: query
+      name: add_fields
+      required: false
+      schema:
+        $ref: '#/components/schemas/add_fields'
+      style: form
+    base_scheme:
+      description: URL scheme to use when building media URLs. (http or https)
+      in: query
+      name: base_scheme
+      required: false
+      schema:
+        $ref: '#/components/schemas/base_scheme'
+      style: form
+    fields:
+      allowReserved: true
+      description: 'A list of attributes of objects to be returned in the response
+        ex. pin.id and "Joins" which is a way to specify additional data fetches ex.pin.buyable_product().
+        example query param: ?fields= pin.id, pin.buyable_product(), pin.link, user.full_name,
+        pin.board(). If left empty summary fields will be returned by default.'
+      explode: false
+      in: query
+      name: fields
+      required: false
+      schema:
+        $ref: '#/components/schemas/fields'
+      style: form
+    render_style:
+      description: Set of fields to be returned to the client. ex. ?render_style=detailed
+        will return the detailed field set for the endpoint.
+      in: query
+      name: render_style
+      required: false
+      schema:
+        $ref: '#/components/schemas/render_style'
+      style: form
+  schemas:
+    ApiBookmarkedEnvelope:
+      examples:
+      - bookmark: SSBhbSB3aGF0IGEgYm9va21hcmsgbG9va3MgbGlrZSE=
+        code: 0
+        data: null
+        endpoint_name: v3_ping
+        message: ok
+        status: success
+      properties:
+        bookmark:
+          title: Bookmark
+          type: string
+        code:
+          title: Code
+          type: integer
+        data:
+          oneOf:
+          - type: integer
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: boolean
+          - type: number
+          - items: {}
+            type: array
+          title: Data
+        debug_logs:
+          items:
+            type: object
+          title: Debug Logs
+          type: array
+        endpoint_name:
+          title: Endpoint Name
+          type: string
+        message:
+          title: Message
+          type: string
+        message_detail:
+          title: Message Detail
+          type: string
+        sensitivity:
+          title: Sensitivity
+          type: object
+        status:
+          $ref: '#/components/schemas/ResponseStatus'
+      required:
+      - status
+      - code
+      - data
+      - message
+      - endpoint_name
+      - bookmark
+      title: ApiBookmarkedEnvelope
+      type: object
+    ApiEnvelope:
+      examples:
+      - code: 0
+        data: null
+        endpoint_name: v3_ping
+        message: ok
+        status: success
+      properties:
+        code:
+          title: Code
+          type: integer
+        data:
+          oneOf:
+          - type: integer
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: boolean
+          - type: number
+          - items: {}
+            type: array
+          title: Data
+        debug_logs:
+          items:
+            type: object
+          title: Debug Logs
+          type: array
+        endpoint_name:
+          title: Endpoint Name
+          type: string
+        message:
+          title: Message
+          type: string
+        message_detail:
+          title: Message Detail
+          type: string
+        sensitivity:
+          title: Sensitivity
+          type: object
+        status:
+          $ref: '#/components/schemas/ResponseStatus'
+      required:
+      - status
+      - code
+      - data
+      - message
+      - endpoint_name
+      title: ApiEnvelope
+      type: object
+    ApiErrorEnvelope:
+      examples:
+      - code: 1
+        data: null
+        endpoint_name: v3_ping
+        error:
+          message: Parameter 'foo' is required.
+        message: Invalid parameters.
+        status: failure
+      properties:
+        code:
+          title: Code
+          type: integer
+        data:
+          oneOf:
+          - type: integer
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: boolean
+          - type: number
+          - items: {}
+            type: array
+          title: Data
+        debug_logs:
+          items:
+            type: object
+          title: Debug Logs
+          type: array
+        endpoint_name:
+          title: Endpoint Name
+          type: string
+        error:
+          title: Error
+          type: object
+        message:
+          title: Message
+          type: string
+        message_detail:
+          title: Message Detail
+          type: string
+        sensitivity:
+          title: Sensitivity
+          type: object
+        status:
+          $ref: '#/components/schemas/ResponseStatus'
+      required:
+      - status
+      - code
+      - data
+      - message
+      - endpoint_name
+      title: ApiErrorEnvelope
+      type: object
+    ResponseStatus:
+      description: An enumeration.
+      enum:
+      - success
+      - failure
+      title: ResponseStatus
+      type: string
+    UserCustom:
+      description: Pinterest User.
+      properties:
+        about:
+          nullable: false
+          type: string
+        active:
+          nullable: false
+          type: boolean
+        ads_customize_from_conversion:
+          nullable: false
+          type: boolean
+        age_in_years:
+          nullable: false
+          type: integer
+        allow_analytic_cookies:
+          nullable: false
+          type: boolean
+        allow_marketing_cookies:
+          nullable: false
+          type: boolean
+        allow_personalization_cookies:
+          nullable: false
+          type: boolean
+        archived_board_count:
+          nullable: false
+          type: integer
+        blocked_by_me:
+          nullable: false
+          type: boolean
+        board_count:
+          nullable: false
+          type: integer
+        browsing_level:
+          nullable: true
+          type: string
+        can_enable_mfa:
+          nullable: false
+          type: boolean
+        can_upload_cover:
+          nullable: false
+          type: boolean
+        canonical_merchant_domain:
+          nullable: true
+          type: string
+        ccpa_opted_out:
+          nullable: false
+          type: boolean
+        commerce_module_data:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        community_display_name:
+          nullable: false
+          type: string
+        community_role:
+          nullable: true
+          type: string
+        community_roles:
+          oneOf:
+          - items:
+              type: integer
+            nullable: false
+            type: array
+          - items:
+              type: string
+            nullable: false
+            type: array
+          - items:
+              additionalProperties: true
+              type: object
+            nullable: false
+            type: array
+          - items:
+              type: boolean
+            nullable: false
+            type: array
+          - items:
+              type: number
+            nullable: false
+            type: array
+          - items:
+              items: {}
+              type: array
+            nullable: false
+            type: array
+        connected_to_dropbox:
+          nullable: false
+          type: boolean
+        connected_to_etsy:
+          nullable: false
+          type: boolean
+        connected_to_facebook:
+          nullable: false
+          type: boolean
+        connected_to_google:
+          nullable: false
+          type: boolean
+        connected_to_gplus:
+          nullable: false
+          type: boolean
+        connected_to_instagram:
+          nullable: false
+          type: boolean
+        connected_to_microsoft:
+          nullable: false
+          type: boolean
+        connected_to_old_instagram_auth:
+          nullable: false
+          type: boolean
+        connected_to_rakuten:
+          nullable: false
+          type: boolean
+        connected_to_twitter:
+          nullable: false
+          type: boolean
+        connected_to_yahoo:
+          nullable: false
+          type: boolean
+        connected_to_youtube:
+          nullable: false
+          type: boolean
+        country:
+          nullable: true
+          type: string
+        created_at:
+          nullable: false
+          type: string
+        custom_gender:
+          nullable: true
+          type: string
+        debug:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: false
+          type: object
+        default_payment:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        default_shipping:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        domain_url:
+          nullable: true
+          type: string
+        domain_verified:
+          nullable: false
+          type: boolean
+        eligible_profile_tabs:
+          oneOf:
+          - items:
+              type: integer
+            nullable: false
+            type: array
+          - items:
+              type: string
+            nullable: false
+            type: array
+          - items:
+              additionalProperties: true
+              type: object
+            nullable: false
+            type: array
+          - items:
+              type: boolean
+            nullable: false
+            type: array
+          - items:
+              type: number
+            nullable: false
+            type: array
+          - items:
+              items: {}
+              type: array
+            nullable: false
+            type: array
+        email:
+          nullable: true
+          type: string
+        exclude_from_search:
+          nullable: false
+          type: boolean
+        experiments:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: false
+          type: object
+        explicit_board_following_count:
+          nullable: false
+          type: integer
+        explicit_user_following_count:
+          nullable: false
+          type: integer
+        explicitly_followed_by_me:
+          nullable: false
+          type: boolean
+        facebook_id:
+          nullable: true
+          type: string
+        facebook_publish_stream_enabled:
+          nullable: false
+          type: boolean
+        facebook_timeline_enabled:
+          nullable: false
+          type: boolean
+        facebook_url:
+          nullable: true
+          type: string
+        fast_advertiser_info_has_any_managed_advertisers:
+          nullable: false
+          type: boolean
+        first_name:
+          nullable: true
+          type: string
+        followed_by_me:
+          nullable: false
+          type: boolean
+        follower_count:
+          nullable: false
+          type: integer
+        following_count:
+          nullable: false
+          type: integer
+        full_name:
+          nullable: false
+          type: string
+        gatekeeper_experiments:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: false
+          type: object
+        gender:
+          nullable: false
+          type: string
+        gplus_url:
+          nullable: true
+          type: string
+        group_board_count:
+          nullable: false
+          type: integer
+        has_catalog:
+          nullable: false
+          type: boolean
+        has_completed_quiz:
+          nullable: false
+          type: boolean
+        has_content_claiming_access:
+          nullable: false
+          type: boolean
+        has_custom_board_sorting_order:
+          nullable: false
+          type: boolean
+        has_done_app_install:
+          nullable: false
+          type: boolean
+        has_done_clickthrough:
+          nullable: false
+          type: boolean
+        has_done_closeup:
+          nullable: false
+          type: boolean
+        has_mfa_enabled:
+          nullable: false
+          type: boolean
+        has_password:
+          nullable: false
+          type: boolean
+        has_seen_notifications:
+          nullable: false
+          type: boolean
+        has_shopping_showcase:
+          nullable: false
+          type: boolean
+        has_showcase:
+          nullable: false
+          type: boolean
+        id:
+          nullable: false
+          type: string
+        image_large_url:
+          nullable: false
+          type: string
+        image_medium_url:
+          nullable: false
+          type: string
+        image_small_url:
+          nullable: false
+          type: string
+        image_xlarge_url:
+          nullable: false
+          type: string
+        implicitly_followed_by_me:
+          nullable: false
+          type: boolean
+        impressum_url:
+          nullable: true
+          type: string
+        indexed:
+          nullable: false
+          type: boolean
+        interest_following_count:
+          nullable: false
+          type: integer
+        ip_country:
+          nullable: true
+          type: string
+        is_any_website_verified:
+          nullable: false
+          type: boolean
+        is_default_image:
+          nullable: false
+          type: boolean
+        is_eligible_for_shop_tab:
+          nullable: false
+          type: boolean
+        is_employee:
+          nullable: false
+          type: boolean
+        is_geo_eligible_for_creator_messaging:
+          nullable: false
+          type: boolean
+        is_high_risk:
+          nullable: false
+          type: boolean
+        is_known_facebook_user:
+          nullable: false
+          type: boolean
+        is_partner:
+          nullable: false
+          type: boolean
+        is_primary_website_verified:
+          nullable: false
+          type: boolean
+        is_tastemaker:
+          nullable: false
+          type: boolean
+        is_third_party_ads_enabled:
+          nullable: false
+          type: boolean
+        is_verified_merchant:
+          nullable: false
+          type: boolean
+        is_write_banned:
+          nullable: false
+          type: boolean
+        joined_communities_count:
+          nullable: false
+          type: integer
+        last_login_country:
+          nullable: true
+          type: string
+        last_name:
+          nullable: true
+          type: string
+        last_pin_done_time:
+          nullable: true
+          type: string
+        last_pin_like_time:
+          nullable: true
+          type: string
+        last_pin_save_time:
+          nullable: true
+          type: string
+        like_count:
+          nullable: false
+          type: integer
+        listed_website_url:
+          nullable: true
+          type: string
+        locale:
+          nullable: true
+          type: string
+        location:
+          nullable: true
+          type: string
+        login_state:
+          nullable: true
+          type: integer
+        merchant_id:
+          nullable: false
+          type: string
+        mfa_backup_codes:
+          oneOf:
+          - items:
+              type: integer
+            nullable: true
+            type: array
+          - items:
+              type: string
+            nullable: true
+            type: array
+          - items:
+              additionalProperties: true
+              type: object
+            nullable: true
+            type: array
+          - items:
+              type: boolean
+            nullable: true
+            type: array
+          - items:
+              type: number
+            nullable: true
+            type: array
+          - items:
+              items: {}
+              type: array
+            nullable: true
+            type: array
+        most_recent_board_sort_order:
+          nullable: false
+          type: string
+        nags:
+          oneOf:
+          - items:
+              type: integer
+            nullable: false
+            type: array
+          - items:
+              type: string
+            nullable: false
+            type: array
+          - items:
+              additionalProperties: true
+              type: object
+            nullable: false
+            type: array
+          - items:
+              type: boolean
+            nullable: false
+            type: array
+          - items:
+              type: number
+            nullable: false
+            type: array
+          - items:
+              items: {}
+              type: array
+            nullable: false
+            type: array
+        native_pin_count:
+          nullable: false
+          type: integer
+        obfuscated_email:
+          nullable: false
+          type: string
+        personalize_from_offsite_browsing:
+          nullable: false
+          type: boolean
+        phone_country:
+          nullable: true
+          type: string
+        phone_number:
+          nullable: true
+          type: string
+        phone_number_end:
+          nullable: true
+          type: string
+        phone_number_without_country:
+          nullable: true
+          type: string
+        pin_count:
+          nullable: false
+          type: integer
+        pin_thumbnail_urls:
+          items:
+            type: string
+          nullable: false
+          type: array
+        pins_done_count:
+          nullable: false
+          type: integer
+        ppa_merchant_id:
+          nullable: false
+          type: string
+        profile_cover_source:
+          nullable: true
+          type: string
+        profile_discovered_public:
+          nullable: false
+          type: boolean
+        profile_reach:
+          nullable: true
+          type: integer
+        profile_url:
+          nullable: false
+          type: string
+        push_package_user_id:
+          nullable: false
+          type: string
+        recent_pin_images:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        recommendation_reason:
+          nullable: true
+          type: string
+        resurrection_info:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        scheduled_pin_count:
+          nullable: false
+          type: integer
+        secret_board_count:
+          nullable: false
+          type: integer
+        secret_boards_remaining:
+          nullable: false
+          type: integer
+        should_show_homefeed_ads:
+          nullable: false
+          type: boolean
+        show_creator_profile:
+          nullable: false
+          type: boolean
+        show_discovered_feed:
+          nullable: false
+          type: boolean
+        show_engagement_tab:
+          nullable: false
+          type: boolean
+        show_impressum:
+          nullable: false
+          type: boolean
+        storefront_management_enabled:
+          nullable: false
+          type: boolean
+        storefront_search_enabled:
+          nullable: false
+          type: boolean
+        story_pin_count:
+          nullable: false
+          type: integer
+        tag:
+          nullable: true
+          type: string
+        third_party_ad_unit_id:
+          nullable: false
+          type: string
+        third_party_ads_config:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: false
+          type: object
+        third_party_app_id:
+          nullable: false
+          type: string
+        third_party_marketing_tracking_enabled:
+          nullable: false
+          type: boolean
+        triggerable_experiments:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: false
+          type: object
+        twitter_publish_enabled:
+          nullable: false
+          type: boolean
+        twitter_url:
+          nullable: true
+          type: string
+        type:
+          nullable: false
+          type: string
+        unverified_phone_country:
+          nullable: true
+          type: string
+        unverified_phone_number:
+          nullable: true
+          type: string
+        unverified_phone_number_without_country:
+          nullable: true
+          type: string
+        user_following_count:
+          nullable: false
+          type: integer
+        user_recommendation_reason:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        username:
+          nullable: false
+          type: string
+        usmstate:
+          nullable: false
+          type: string
+        verified_domains:
+          items:
+            type: string
+          nullable: false
+          type: array
+        verified_identity:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        verified_user_websites:
+          items:
+            type: string
+          nullable: false
+          type: array
+        video_pin_count:
+          nullable: false
+          type: integer
+        video_upload_allowed:
+          nullable: false
+          type: boolean
+        video_views:
+          nullable: false
+          type: integer
+        website_url:
+          nullable: true
+          type: string
+      title: User with custom keys
+      type: object
+    UserDetailed:
+      description: Pinterest User.
+      properties:
+        about:
+          nullable: false
+          type: string
+        active:
+          nullable: false
+          type: boolean
+        blocked_by_me:
+          nullable: false
+          type: boolean
+        board_count:
+          nullable: false
+          type: integer
+        canonical_merchant_domain:
+          nullable: true
+          type: string
+        commerce_module_data:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        created_at:
+          nullable: false
+          type: string
+        debug:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: false
+          type: object
+        domain_url:
+          nullable: true
+          type: string
+        domain_verified:
+          nullable: false
+          type: boolean
+        explicitly_followed_by_me:
+          nullable: false
+          type: boolean
+        first_name:
+          nullable: true
+          type: string
+        followed_by_me:
+          nullable: false
+          type: boolean
+        follower_count:
+          nullable: false
+          type: integer
+        following_count:
+          nullable: false
+          type: integer
+        full_name:
+          nullable: false
+          type: string
+        gender:
+          nullable: false
+          type: string
+        group_board_count:
+          nullable: false
+          type: integer
+        has_custom_board_sorting_order:
+          nullable: false
+          type: boolean
+        id:
+          nullable: false
+          type: string
+        image_large_url:
+          nullable: false
+          type: string
+        image_medium_url:
+          nullable: false
+          type: string
+        image_small_url:
+          nullable: false
+          type: string
+        image_xlarge_url:
+          nullable: false
+          type: string
+        implicitly_followed_by_me:
+          nullable: false
+          type: boolean
+        impressum_url:
+          nullable: true
+          type: string
+        indexed:
+          nullable: false
+          type: boolean
+        is_any_website_verified:
+          nullable: false
+          type: boolean
+        is_default_image:
+          nullable: false
+          type: boolean
+        is_geo_eligible_for_creator_messaging:
+          nullable: false
+          type: boolean
+        is_partner:
+          nullable: false
+          type: boolean
+        is_primary_website_verified:
+          nullable: false
+          type: boolean
+        is_verified_merchant:
+          nullable: false
+          type: boolean
+        last_login_country:
+          nullable: true
+          type: string
+        last_name:
+          nullable: true
+          type: string
+        last_pin_like_time:
+          nullable: true
+          type: string
+        last_pin_save_time:
+          nullable: true
+          type: string
+        like_count:
+          nullable: false
+          type: integer
+        listed_website_url:
+          nullable: true
+          type: string
+        location:
+          nullable: true
+          type: string
+        merchant_id:
+          nullable: false
+          type: string
+        native_pin_count:
+          nullable: false
+          type: integer
+        obfuscated_email:
+          nullable: false
+          type: string
+        pin_count:
+          nullable: false
+          type: integer
+        pin_thumbnail_urls:
+          items:
+            type: string
+          nullable: false
+          type: array
+        pins_done_count:
+          nullable: false
+          type: integer
+        profile_cover_source:
+          nullable: true
+          type: string
+        profile_discovered_public:
+          nullable: false
+          type: boolean
+        profile_reach:
+          nullable: true
+          type: integer
+        recent_pin_images:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        recommendation_reason:
+          nullable: true
+          type: string
+        show_creator_profile:
+          nullable: false
+          type: boolean
+        show_discovered_feed:
+          nullable: false
+          type: boolean
+        show_impressum:
+          nullable: false
+          type: boolean
+        tag:
+          nullable: true
+          type: string
+        type:
+          nullable: false
+          type: string
+        user_following_count:
+          nullable: false
+          type: integer
+        user_recommendation_reason:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        username:
+          nullable: false
+          type: string
+        verified_domains:
+          items:
+            type: string
+          nullable: false
+          type: array
+        verified_identity:
+          additionalProperties:
+            oneOf:
+            - type: integer
+            - type: string
+            - additionalProperties: true
+              type: object
+            - type: boolean
+            - type: number
+            - items: {}
+              type: array
+          nullable: true
+          type: object
+        verified_user_websites:
+          items:
+            type: string
+          nullable: false
+          type: array
+        website_url:
+          nullable: true
+          type: string
+      title: User with detailed keys
+      type: object
+    UserSummary:
+      description: Pinterest User.
+      properties:
+        first_name:
+          nullable: true
+          type: string
+        full_name:
+          nullable: false
+          type: string
+        gender:
+          nullable: false
+          type: string
+        id:
+          nullable: false
+          type: string
+        image_large_url:
+          nullable: false
+          type: string
+        image_medium_url:
+          nullable: false
+          type: string
+        image_small_url:
+          nullable: false
+          type: string
+        image_xlarge_url:
+          nullable: false
+          type: string
+        last_name:
+          nullable: true
+          type: string
+        type:
+          nullable: false
+          type: string
+        username:
+          nullable: false
+          type: string
+      title: User with summary keys
+      type: object
+    add_fields:
+      examples:
+      - $ref: '#/components/examples/pin_names_and_board_title'
+      items:
+        type: string
+      type: array
+    base_scheme:
+      enum:
+      - http
+      - https
+      type: string
+    fields:
+      examples:
+      - $ref: '#/components/examples/pin_names_and_board_title'
+      items:
+        type: string
+      type: array
+    render_style:
+      enum:
+      - detailed
+      - summary
+      - all_fields
+      type: string
+info:
+  title: Pin API
+  version: 0.0.1
+openapi: 3.0.3
+paths:
+  /v3/users/me/viewer/:
+    description: |-
+      Get an auth or unauth user's info
+
+          Returns:
+              A detailed user object
+    get:
+      operationId: v3_get_current_user_handler
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ApiEnvelope'
+                - properties:
+                    data:
+                      nullable: false
+                      oneOf:
+                      - $ref: '#/components/schemas/UserCustom'
+                      - $ref: '#/components/schemas/UserDetailed'
+                      - $ref: '#/components/schemas/UserSummary'
+                      readOnly: true
+                    endpoint_name:
+                      enum:
+                      - v3_get_current_user_handler
+                      type: string
+                  title: v3_get_current_user_handler response
+                  type: object
+          description: v3_get_current_user_handler response
+      x-pinterest-internal-owned-by: ngapi
+    summary: |-
+      Get an auth or unauth user's info
+
+          Returns:
+              A detailed user object

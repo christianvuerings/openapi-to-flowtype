@@ -1,4 +1,11 @@
-# openapi-to-flowtype
+# openapi-to-flowtype (forked)
+
+Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the following changes:
+
+* Use `{ [key: string] : mixed}` for `object` types without any properties. Previously this was typed as `{}` which causes issues in exact mode
+* Fix `Array<undefined>` output types by falling back to `mixed` when no type is defined
+* Replace `Array<*>` with `Array<mixed>`
+* Add pinterest open api schema as a test
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 

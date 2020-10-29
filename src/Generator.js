@@ -2,11 +2,11 @@
 
 import camelize from 'camelize';
 
-const EMPTY_OBJECT : any = {};
+const EMPTY_OBJECT : any = '{ [key: string]: mixed }';
 
 // OpenAPI data types are base on types supported by the JSON-Scheme Draft4.
 const typeMapping = {
-  array: 'Array<*>',
+  array: 'Array<mixed>',
   boolean: 'boolean',
   integer: 'number',
   number: 'number',
@@ -15,6 +15,7 @@ const typeMapping = {
   Object: 'Object',
   string: 'string',
   enum: 'string',
+  mixed: 'mixed',
 };
 
 const stripBrackets = ( name : string ) => name.replace( /[[\]']+/g, '' );
@@ -27,10 +28,7 @@ const isRequired = ( propertyName : string, definition : Object ) : boolean => {
 
 const isNullable = ( property : Object ) : boolean => property.nullable;
 
-const withExact = ( property : string ) : string => {
-  const result = property.replace( /{[^|}]/g, '{|' ).replace( /[^|{]}/g, '|}' );
-  return result;
-};
+const withExact = ( property : string ) : string => property.replace( /\{[^|}.]/g, '{|' ).replace( /[^|{.]\}/g, '|}' );
 
 export default class Generator {
 
@@ -184,7 +182,8 @@ export default class Generator {
         );
         return `Array<${child}>`;
       }
-      return `Array<${typeMapping[ property.items.type ]}>`;
+      const type = property.items.type || 'mixed';
+      return `Array<${typeMapping[ type ]}>`;
     } else if ( property.type === 'string' && 'enum' in property ) {
       return property.enum.map( e => `'${e}'` ).join( ' | ' );
     } else if ( Array.isArray( property.type ) ) {

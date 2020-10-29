@@ -1,5 +1,5 @@
 {
-  "name": "openapi-to-flowtype",
+  "name": "@christianv/openapi-to-flowtype",
   "version": "0.9.1",
   "description": "Command line tool for generating flow types definitions from OpenAPI 3.0 specification",
   "main": "./dist/index.js",
@@ -15,7 +15,7 @@
     "eslint:fix": "eslint --ignore-pattern \"!.eslintrc.js\" --ignore-pattern \"**/*.flow.js\" --fix .eslintrc.js babel.config.js src/**/*.js test/**/*.js",
     "preversion": "npm run test && npm run build",
     "version": "npm publish --access=public",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push origin && git push origin --tags"
   },
   "authors": "Sergey Vladimirov <vlsergey@gmail.com>",
   "contributors": [
@@ -28,12 +28,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vlsergey/openapi-to-flowtype.git"
+    "url": "git+https://github.com/christianvuerings/openapi-to-flowtype.git"
   },
   "bugs": {
-    "url": "https://github.com/vlsergey/openapi-to-flowtype/issues"
+    "url": "https://github.com/christianvuerings/openapi-to-flowtype/issues"
   },
-  "homepage": "https://github.com/vlsergey/openapi-to-flowtype#readme",
+  "homepage": "https://github.com/christianvuerings/openapi-to-flowtype#readme",
   "keywords": [
     "flow",
     "swagger",

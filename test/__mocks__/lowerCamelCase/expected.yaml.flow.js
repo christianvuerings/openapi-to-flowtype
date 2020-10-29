@@ -5,7 +5,7 @@ export type Order = {
   quantity?: number,
   shipDate?: string,
   status?: "placed" | "approved" | "delivered",
-  complete?: boolean
+  complete?: boolean,
 };
 export type Category = { id?: number, name?: string };
 export type User = {
@@ -16,7 +16,7 @@ export type User = {
   email?: string,
   password?: string,
   phone?: string,
-  userStatus?: number
+  userStatus?: number,
 };
 export type Tag = { id?: number, name?: string };
 export type Pet = {
@@ -28,7 +28,7 @@ export type Pet = {
   photoUrls: Array<string>,
   tags?: Array<Tag>,
   status?: "available" | "pending" | "sold",
-  objectType?: {}
+  objectType?: { [key: string]: mixed },
 };
 export type IGenericCollectionPet = { items?: Array<Pet> };
 export type IGenericCollectionString = { items?: Array<string> };
