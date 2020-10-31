@@ -36,6 +36,7 @@ export default class Generator {
   lowerCamelCase : boolean = false;
   responses : boolean = false;
   suffix : string = '';
+  log : string[][] = [];
 
   definitionTypeName( ref : string ) {
     const re = /#\/components\/schemas\/(.*)/;
@@ -46,8 +47,23 @@ export default class Generator {
     return found[ 1 ] + this.suffix;
   }
 
+  appendToLog( ...args : string[] ) {
+    this.log.push( args );
+  }
+
   generate( specification : any ) : string {
-    return '// @flow strict\n' + this.generateImpl( specification );
+    try {
+      return '// @flow strict\n' + this.generateImpl( specification );
+    } catch ( error ) {
+      if ( this.log.length ) {
+        const lastItems = this.log.reduce( ( acc, currentValue ) => {
+          acc[ currentValue[ 0 ] ] = currentValue[ 1 ];
+          return acc;
+        }, {} );
+        console.error( 'Exception location', lastItems );
+      }
+      throw error;
+    }
   }
 
   generateImpl( specification : any ) : string {
@@ -82,6 +98,7 @@ export default class Generator {
 
     const result : string[] = [];
     for ( const [ definitionName, def ] of toProcess ) {
+      this.appendToLog( 'definitionName', definitionName );
       const typeDefinition : string = `export type ${stripBrackets( definitionName )}${this.suffix} = ${this.propertiesTemplate(
         this.propertiesList( def )
       ).replace( /"/g, '' )};`;
@@ -118,6 +135,8 @@ export default class Generator {
       Object.keys( definition.properties ).reduce(
         ( properties : Object[], propName : string ) => {
           const property = definition.properties[ propName ];
+          this.appendToLog( 'propertyName', propName );
+          this.appendToLog( 'property', property );
           const arr = properties.concat( {
             [ this.propertyKeyForDefinition( propName, definition ) ]: `${
               isNullable( property ) ? '?' : ''
