@@ -6,6 +6,8 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 * Fix `Array<undefined>` output types by falling back to `mixed` when no type is defined
 * Replace `Array<*>` with `Array<mixed>`
 * Add pinterest open api schema as a test
+* 0.9.3: fix issue with discriminator (anyOf, oneOf allOf) not being the first item
+* 0.9.4: fix --exact with top level object types & add --verbose option
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 

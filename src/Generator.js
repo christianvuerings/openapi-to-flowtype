@@ -39,6 +39,7 @@ const withExact = ( property : string ) : string => property.replace( /\{[^|}.]/
 export default class Generator {
 
   exact : boolean = false;
+  verbose : boolean = false;
   lowerCamelCase : boolean = false;
   responses : boolean = false;
   suffix : string = '';
@@ -60,6 +61,9 @@ export default class Generator {
   generate( specification : any ) : string {
     try {
       const output = '// @flow strict\n' + this.generateImpl( specification );
+      if ( this.verbose ) {
+        console.log( JSON.stringify( this.log, null, 4 ) );
+      }
       return output;
     } catch ( error ) {
       if ( this.log.length ) {
@@ -158,8 +162,9 @@ export default class Generator {
 
   propertiesTemplate( properties : Object | Object[] | string ) : string {
     if ( typeof properties === 'string' ) {
-      return properties;
+      return withExact( properties );
     }
+
     if ( Array.isArray( properties ) ) {
       return properties
         .map( property => {
@@ -172,6 +177,7 @@ export default class Generator {
         .sort( a => ( a[ 0 ] === '&' ? 1 : -1 ) )
         .join( ' ' );
     }
+
     if ( this.exact ) {
       return withExact( JSON.stringify( properties ) );
     }

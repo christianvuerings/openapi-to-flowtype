@@ -22,6 +22,7 @@ export const generator = ( specification : Object, file : string ) => {
   generator.lowerCamelCase = program.lowerCamelCase || generator.lowerCamelCase;
   generator.responses = program.responses || generator.responses;
   generator.suffix = program.suffix || generator.suffix;
+  generator.verbose = program.verbose || generator.verbose;
 
   const result : string = generator.generate( specification );
 
@@ -87,6 +88,7 @@ program
   .arguments( '<file>' )
   .option( '-d --destination <destination>', 'Destination path' )
   .option( '-e --exact', 'Add exact types' )
+  .option( '-v --verbose', 'Verbose output' )
   .option( '--responses', 'Also generate types for operation responses (with titles)' )
   .option( '--suffix <suffix>', 'Add suffix (like "Type") to all generated types' )
   .option(

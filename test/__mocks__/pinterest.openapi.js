@@ -1,7 +1,7 @@
 // @flow strict
-export type GalleryItemDetailed = { [key: string]: mixed };
-export type GalleryItemSummary = { [key: string]: mixed };
-export type GalleryItemCustom = { [key: string]: mixed };
+export type GalleryItemDetailed = {| [key: string]: mixed |};
+export type GalleryItemSummary = {| [key: string]: mixed |};
+export type GalleryItemCustom = {| [key: string]: mixed |};
 export type PinDetailed = {|
   id?: string,
   type?: string,
