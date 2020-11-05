@@ -14,13 +14,24 @@ jest.mock( 'commander', () => ( {
 } ) );
 
 describe( 'generate flow types', () => {
-  describe( 'parse objct in array', () => {
+  describe( 'parse object in array', () => {
     it( 'should generate expected flow types', () => {
       const file = path.join( __dirname, '__mocks__/objectInArray.openapi.yaml' );
       const content = yaml.safeLoad( fs.readFileSync( file, 'utf8' ) );
       const expected = path.join(
         __dirname,
         '__mocks__/objectInArrayWithExact.flow.js'
+      );
+      const expectedString = prettier.format( fs.readFileSync( expected, 'utf8' ), DEFAULT_PRETTIER_OPTIONS );
+      expect( generator( content ) ).toEqual( expectedString );
+    } );
+
+    it( 'should generate expected flow types for pinterests open api schema', () => {
+      const file = path.join( __dirname, '__mocks__/pinterest.openapi.yaml' );
+      const content = yaml.safeLoad( fs.readFileSync( file, 'utf8' ) );
+      const expected = path.join(
+        __dirname,
+        '__mocks__/pinterest.openapi.js'
       );
       const expectedString = prettier.format( fs.readFileSync( expected, 'utf8' ), DEFAULT_PRETTIER_OPTIONS );
       expect( generator( content ) ).toEqual( expectedString );

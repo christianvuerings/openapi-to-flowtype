@@ -63,6 +63,7 @@ components:
           title: Code
           type: integer
         data:
+          title: Data
           oneOf:
           - type: integer
           - type: string
@@ -72,7 +73,6 @@ components:
           - type: number
           - items: {}
             type: array
-          title: Data
         debug_logs:
           items:
             type: object

@@ -18,6 +18,12 @@ const typeMapping = {
   mixed: 'mixed',
 };
 
+const discriminatorMap = {
+  allOf: '&',
+  oneOf: '|',
+  anyOf: '|',
+};
+
 const stripBrackets = ( name : string ) => name.replace( /[[\]']+/g, '' );
 
 const isRequired = ( propertyName : string, definition : Object ) : boolean => {
@@ -53,7 +59,8 @@ export default class Generator {
 
   generate( specification : any ) : string {
     try {
-      return '// @flow strict\n' + this.generateImpl( specification );
+      const output = '// @flow strict\n' + this.generateImpl( specification );
+      return output;
     } catch ( error ) {
       if ( this.log.length ) {
         const lastItems = this.log.reduce( ( acc, currentValue ) => {
@@ -208,16 +215,17 @@ export default class Generator {
     } else if ( Array.isArray( property.type ) ) {
       return property.type.map( t => typeMapping[ t ] ).join( ' | ' );
     } else if (
-      'allOf' in property ||
-      'oneOf' in property ||
-      'anyOf' in property
+      Object.keys( property ).some( d => discriminatorMap[ d ] )
     ) {
-      const discriminator = Object.keys( property )[ 0 ];
-      const discriminatorMap = {
-        allOf: '&',
-        oneOf: '|',
-        anyOf: '|',
-      };
+      const discriminators = Object.keys( property ).filter( d => discriminatorMap[ d ] );
+
+      if ( !discriminators.length ) {
+        throw new Error( 'Could not find a discriminator' );
+      } else if ( discriminators.length > 1 ) {
+        throw new Error( `Avoid multiple discriminators: ${discriminators.join( ' / ' )}` );
+      }
+
+      const discriminator = discriminators[ 0 ];
       return property[ discriminator ]
         .map( p => this.typeFor( p ) )
         .join( discriminatorMap[ discriminator ] );
