@@ -1,0 +1,14 @@
+info:
+  title: Pin API
+  version: 0.0.1
+openapi: 3.0.3
+components:
+  schemas:
+    ResponseStatus:
+      title: ResponseStatus
+      description: An enumeration.
+      enum:
+      - success is guaranteed
+      - failure is not an option
+      - Sorry! We don't support "performing this action" on a board of this type.
+      type: string

@@ -8,6 +8,7 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 * Add pinterest open api schema as a test
 * 0.9.3: fix issue with discriminator (anyOf, oneOf allOf) not being the first item
 * 0.9.4: fix --exact with top level object types & add --verbose option
+* 0.9.5: fix string escaping
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 
@@ -25,7 +26,7 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 
 `$openapi-to-flowtype <YOUR SWAGGER FILE OR URL>`
 
-This command generates a file named **flowtype.js** includes type definitions as default.  
+This command generates a file named **flowtype.js** includes type definitions as default.
 
 ## Options
 

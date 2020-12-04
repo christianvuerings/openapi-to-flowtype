@@ -217,7 +217,7 @@ export default class Generator {
       const type = property.items.type || 'mixed';
       return `Array<${typeMapping[ type ]}>`;
     } else if ( property.type === 'string' && 'enum' in property ) {
-      return property.enum.map( e => `'${e}'` ).join( ' | ' );
+      return property.enum.map( e => `'${e.replace( /'/g, '\\\'' )}'` ).join( ' | ' );
     } else if ( Array.isArray( property.type ) ) {
       return property.type.map( t => typeMapping[ t ] ).join( ' | ' );
     } else if (
