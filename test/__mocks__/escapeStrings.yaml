@@ -10,5 +10,15 @@ components:
       enum:
       - success is guaranteed
       - failure is not an option
+      - Sorry! We don't support performing this action on a board of this type.
       - Sorry! We don't support "performing this action" on a board of this type.
       type: string
+    api_error_2174:
+      allOf:
+      - properties:
+          message:
+            enum:
+            - Sorry! We don't support 1
+            - success is guaranteed
+            type: string
+        title: Sorry! We don't support 2
