@@ -112,7 +112,7 @@ export default class Generator {
       this.appendToLog( 'definitionName', definitionName );
       const typeDefinition : string = `export type ${stripBrackets( definitionName )}${this.suffix} = ${this.propertiesTemplate(
         this.propertiesList( def )
-      ).replace( /"/g, '' )};`;
+      ).replace( /"/g, '' ).replace( /\\\\/g, '\\' )};`;
       result.push( typeDefinition );
     }
 
@@ -129,7 +129,9 @@ export default class Generator {
     }
 
     if ( 'type' in definition && definition.type !== 'object' ) {
-      return this.typeFor( definition );
+      const response = this.typeFor( definition );
+      // console.log( { response } );
+      return response;
     }
 
     if (

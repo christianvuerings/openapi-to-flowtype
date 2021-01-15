@@ -9,6 +9,7 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 * 0.9.3: fix issue with discriminator (anyOf, oneOf allOf) not being the first item
 * 0.9.4: fix --exact with top level object types & add --verbose option
 * 0.9.5: fix string escaping
+* 0.9.5: fix string escaping within properties
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 

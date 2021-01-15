@@ -3,7 +3,7 @@ export type PetType = {
   id: number,
   "x-dashes-id"?: string,
   snake_case_id?: string,
-  objectType?: { [key: string]: mixed },
+  objectType?: {| [key: string]: mixed |},
 } & NewPetType;
 export type NewPetType = {
   name: string,

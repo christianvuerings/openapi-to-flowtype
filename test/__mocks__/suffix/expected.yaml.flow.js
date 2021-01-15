@@ -28,7 +28,7 @@ export type PetType = {
   photoUrls: Array<string>,
   tags?: Array<TagType>,
   status?: "available" | "pending" | "sold",
-  objectType?: { [key: string]: mixed },
+  objectType?: {| [key: string]: mixed |},
 };
 export type IGenericCollectionPetType = { items?: Array<PetType> };
 export type IGenericCollectionStringType = { items?: Array<string> };
