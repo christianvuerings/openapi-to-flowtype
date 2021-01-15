@@ -1,12 +1,11 @@
 // @flow strict
-
 export type Pet = {
-  "x-dashes-id"? : string,
-  id : number,
-  objectType? : {| [key : string] : mixed |},
-  snake_case_id? : string,
+  id: number,
+  "x-dashes-id"?: string,
+  snake_case_id?: string,
+  objectType?: {| [key: string]: mixed |},
 } & NewPet;
-export type NewPet = { category? : Category, name : string, tag? : string };
-export type ErrorModel = { code : number, message : string };
-export type IGenericCollectionPet = { items? : Pet[] };
-export type IGenericCollectionString = { items? : string[] };
+export type NewPet = { name: string, tag?: string, category?: Category };
+export type ErrorModel = { code: number, message: string };
+export type IGenericCollectionPet = { items?: Array<Pet> };
+export type IGenericCollectionString = { items?: Array<string> };
