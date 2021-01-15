@@ -1,0 +1,6 @@
+{
+  "javascript.validate.enable": false,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.suggest.enabled": false,
+  "typescript.validate.enable": false,
+}
