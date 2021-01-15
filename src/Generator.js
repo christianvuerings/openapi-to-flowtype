@@ -84,7 +84,6 @@ export default class Generator {
     }
 
     if ( this.responses ) {
-      // $FlowFixMe
       for ( const byPath of Object.values( specification.paths || EMPTY_OBJECT ) ) {
         // $FlowFixMe
         for ( const byMethod of Object.values( byPath ) ) {
