@@ -47,12 +47,13 @@ program
   .option("--stdout", "Log output to stdout instead of writing to file")
   .action(async (file) => {
     try {
+      const options = program.opts();
       const content = await getContent(file);
       const result = generator(content, file);
-      if (program.opts().stdout) {
+      if (options.stdout) {
         console.log(result);
       } else {
-        const dist = distFile(program, file);
+        const dist = distFile(options, file);
         writeToFile(dist, result);
         console.log(`Generated flow types to ${dist}`);
       }

@@ -14,6 +14,7 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 - 0.9.7: support keys starting with a numeric value + introduce prettier + improve tests
 - 0.9.8: use $ReadOnlyArray instead of Array
 - 0.9.9: fix camelize import
+- 0.9.10: fix destination parameter
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 
