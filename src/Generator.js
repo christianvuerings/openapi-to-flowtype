@@ -189,7 +189,7 @@ export default class Generator {
     propName : string,
     definition : Object
   ) : string {
-    let resolvedPropName = propName.indexOf( '-' ) > 0 ? `'${propName}'` : propName;
+    let resolvedPropName = propName.indexOf( '-' ) > 0 || /^\d/.test(propName) ? `'${propName}'` : propName;
     if ( this.lowerCamelCase ) {
       resolvedPropName = camelize( resolvedPropName );
     }
