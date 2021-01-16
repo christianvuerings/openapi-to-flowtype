@@ -1,6 +1,6 @@
 {
   "name": "@christianv/openapi-to-flowtype",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "Command line tool for generating flow types definitions from OpenAPI 3.0 specification",
   "main": "./dist/index.js",
   "browserslist": "node 14",
@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "camelize": "^1.0.0",
     "commander": "^7.0.0",
     "core-js": "^3.8.2",
     "js-yaml": "^3.14.1",
@@ -53,7 +54,6 @@
   "devDependencies": {
     "@vlsergey/babel-config": "^0.7.0",
     "babel-eslint": "^10.1.0",
-    "camelize": "^1.0.0",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-flowtype": "^5.2.0",
