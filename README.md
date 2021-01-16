@@ -10,6 +10,8 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 - 0.9.4: fix --exact with top level object types & add --verbose option
 - 0.9.5: fix string escaping
 - 0.9.6: fix string escaping within properties
+- 0.9.6: fix string escaping within properties
+- 0.9.7: support keys starting with a numeric value + introduce prettier + improve tests
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 
