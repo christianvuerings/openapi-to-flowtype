@@ -1,25 +1,20 @@
-import { DEFAULT_PRETTIER_OPTIONS, generator } from '../src/index';
 import fs from 'fs';
 import path from 'path';
 import prettier from 'prettier';
 import yaml from 'js-yaml';
+import { exec } from 'child_process';
+import util from 'util';
 
-jest.mock( 'commander', () => ( {
-  checkRequired: true,
-  arguments: jest.fn().mockReturnThis(),
-  option: jest.fn().mockReturnThis(),
-  action: jest.fn().mockReturnThis(),
-  parse: jest.fn().mockReturnThis(),
-} ) );
+const asyncExec = util.promisify(exec);
 
 describe( 'generate flow types', () => {
   describe( 'parse objct in array', () => {
-    it( 'should generate expected flow types', () => {
-      const file = path.join( __dirname, '__mocks__/objectInArray.openapi.yaml' );
-      const content = yaml.safeLoad( fs.readFileSync( file, 'utf8' ) );
-      const expected = path.join( __dirname, '__mocks__/objectInArray.flow.js' );
-      const expectedString = prettier.format( fs.readFileSync( expected, 'utf8' ), DEFAULT_PRETTIER_OPTIONS );
-      expect( generator( content ) ).toEqual( expectedString );
+    it( 'should generate expected flow types', async () => {
+      const { stdout } = await asyncExec(`node ./dist/index.js --stdout test/__mocks__/objectInArray.openapi.yaml`);
+      const expected = prettier.format( fs.readFileSync( 'test/__mocks__/objectInArray.flow.js', 'utf8' ), {
+        parser: 'babel',
+      } );
+      expect( stdout.trim() ).toEqual( expected.trim() );
     } );
   } );
 } );

@@ -10,7 +10,7 @@ import fs from "fs";
 import Generator from "./Generator";
 import path from "path";
 import prettier from "prettier";
-import program from "commander";
+import { program } from "commander";
 import yaml from "js-yaml";
 
 export const DEFAULT_PRETTIER_OPTIONS = {
@@ -19,6 +19,7 @@ export const DEFAULT_PRETTIER_OPTIONS = {
 
 export const generator = (specification: Object, file: string) => {
   const generator: Generator = new Generator();
+  const options = program.opts()
   generator.exact = program.exact || generator.exact;
   generator.lowerCamelCase = program.lowerCamelCase || generator.lowerCamelCase;
   generator.responses = program.responses || generator.responses;
@@ -102,13 +103,18 @@ program
     "-l --lower-camel-case",
     "Transform property keys to lower camel case"
   )
+  .option("--stdout", "Log output to stdout instead of writing to file")
   .action(async (file) => {
     try {
       const content = await getContent(file);
       const result = generator(content, file);
-      const dist = distFile(program, file);
-      writeToFile(dist, result);
-      console.log(`Generated flow types to ${dist}`);
+      if (program.opts().stdout) {
+        console.log(result);
+      } else {
+        const dist = distFile(program, file);
+        writeToFile(dist, result);
+        console.log(`Generated flow types to ${dist}`);
+      }
     } catch (e) {
       console.log(e);
     }
