@@ -12,5 +12,5 @@ export type NewPetType = {
   category?: CategoryType,
 };
 export type ErrorModelType = { code: number, message: string };
-export type IGenericCollectionPetType = { items?: Array<PetType> };
-export type IGenericCollectionStringType = { items?: Array<string> };
+export type IGenericCollectionPetType = { items?: $ReadOnlyArray<PetType> };
+export type IGenericCollectionStringType = { items?: $ReadOnlyArray<string> };
