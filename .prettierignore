@@ -1,0 +1,6 @@
+*.json
+*.yaml
+*.yml
+coverage/
+dist/
+test/__mocks__

@@ -1,4 +1,5 @@
 // @flow strict
+export type CategoryType = { code?: number, message?: string };
 export type PetType = {
   id: number,
   "x-dashes-id"?: string,

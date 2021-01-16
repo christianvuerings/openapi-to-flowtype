@@ -1,5 +1,5 @@
 // @flow strict
-export type ApiBookmarkedEnvelope = {
+export type ApiBookmarkedEnvelope = {|
   bookmark?: string,
   code: number,
   data:
@@ -15,8 +15,8 @@ export type ApiBookmarkedEnvelope = {
   message_detail?: string,
   sensitivity?: {| [key: string]: mixed |},
   status: ResponseStatus,
-};
-export type ApiEnvelope = {
+|};
+export type ApiEnvelope = {|
   code: number,
   data:
     | number
@@ -31,8 +31,8 @@ export type ApiEnvelope = {
   message_detail?: string,
   sensitivity?: {| [key: string]: mixed |},
   status: ResponseStatus,
-};
-export type ApiErrorEnvelope = {
+|};
+export type ApiErrorEnvelope = {|
   code: number,
   data:
     | number
@@ -48,14 +48,14 @@ export type ApiErrorEnvelope = {
   message_detail?: string,
   sensitivity?: {| [key: string]: mixed |},
   status: ResponseStatus,
-};
+|};
 export type AttributionsCustom = {| [key: string]: mixed |};
 export type AttributionsDetailed = {| [key: string]: mixed |};
 export type AttributionsSummary = {| [key: string]: mixed |};
-export type BoardActionLockCustom = { is_origin?: ?boolean };
-export type BoardActionLockDetailed = { is_origin?: ?boolean };
-export type BoardActionLockSummary = { is_origin?: ?boolean };
-export type BoardCustom = {
+export type BoardActionLockCustom = {| is_origin?: ?boolean |};
+export type BoardActionLockDetailed = {| is_origin?: ?boolean |};
+export type BoardActionLockSummary = {| is_origin?: ?boolean |};
+export type BoardCustom = {|
   access?: Array<Enum_Access>,
   allow_homefeed_recommendations?: boolean,
   annotations?: ?Array<string>,
@@ -126,8 +126,8 @@ export type BoardCustom = {
   viewer_collaborator_join_requested?: boolean,
   viewer_contact_request?: ?{| [key: string]: mixed |},
   viewer_invitation?: ?{| [key: string]: mixed |},
-};
-export type BoardDetailed = {
+|};
+export type BoardDetailed = {|
   access?: Array<Enum_Access>,
   allow_homefeed_recommendations?: boolean,
   board_activity_count?: number,
@@ -172,8 +172,8 @@ export type BoardDetailed = {
   url?: string,
   viewer_collaborator_join_requested?: boolean,
   viewer_invitation?: ?{| [key: string]: mixed |},
-};
-export type BoardSummary = {
+|};
+export type BoardSummary = {|
   board_order_modified_at: ?string,
   category: ?Enum_BoardCategories,
   collaborated_by_me?: boolean,
@@ -186,10 +186,10 @@ export type BoardSummary = {
   name: string,
   type?: string,
   url?: string,
-};
-export type CollaboratorInviteCustom = { is_acceptable?: ?boolean };
-export type CollaboratorInviteDetailed = { is_acceptable?: ?boolean };
-export type CollaboratorInviteSummary = { is_acceptable?: ?boolean };
+|};
+export type CollaboratorInviteCustom = {| is_acceptable?: ?boolean |};
+export type CollaboratorInviteDetailed = {| is_acceptable?: ?boolean |};
+export type CollaboratorInviteSummary = {| is_acceptable?: ?boolean |};
 export type ContactRequestCustom = {| [key: string]: mixed |};
 export type ContactRequestDetailed = {| [key: string]: mixed |};
 export type ContactRequestSummary = {| [key: string]: mixed |};
@@ -542,7 +542,7 @@ export type FlexGridStyleSummary = {| [key: string]: mixed |};
 export type GalleryItemCustom = {| [key: string]: mixed |};
 export type GalleryItemDetailed = {| [key: string]: mixed |};
 export type GalleryItemSummary = {| [key: string]: mixed |};
-export type PinCustom = {
+export type PinCustom = {|
   access?: Array<Enum_Access>,
   activity?: ?Enum_ActionType,
   activity_timestamp?: ?number,
@@ -732,8 +732,8 @@ export type PinCustom = {
   virtual_try_on_type?: Enum_VirtualTryOnPinType,
   visual_objects?: Array<SubModel_StelaVisualObject>,
   visual_search_attrs?: ?{| [key: string]: mixed |},
-};
-export type PinDetailed = {
+|};
+export type PinDetailed = {|
   access?: Array<Enum_Access>,
   activity?: ?Enum_ActionType,
   activity_timestamp?: ?number,
@@ -887,8 +887,8 @@ export type PinDetailed = {
   video_status_message?: ?SubModel_VideoStatusMessage,
   view_tags: ?Array<SubModel_ViewTag>,
   visual_search_attrs?: ?{| [key: string]: mixed |},
-};
-export type PinSummary = {
+|};
+export type PinSummary = {|
   attribution?: ?SubModel_Attribution,
   cacheable_id?: string,
   comment_count?: number,
@@ -918,45 +918,45 @@ export type PinSummary = {
   tracked_link?: ?string,
   tracking_params?: ?string,
   type?: string,
-};
-export type PinTypeFilterCustom = {
+|};
+export type PinTypeFilterCustom = {|
   id?: string,
   pin_type?: number,
   text?: string,
   type?: string,
-};
-export type PinTypeFilterDetailed = {
+|};
+export type PinTypeFilterDetailed = {|
   id?: string,
   pin_type: number,
   text: string,
   type?: string,
-};
-export type PinTypeFilterSummary = {
+|};
+export type PinTypeFilterSummary = {|
   id?: string,
   pin_type: number,
   text: string,
   type?: string,
-};
-export type ProfileTabCustom = {
+|};
+export type ProfileTabCustom = {|
   id?: string,
   name?: string,
   tab_type?: number,
   type?: string,
-};
-export type ProfileTabDetailed = {
+|};
+export type ProfileTabDetailed = {|
   id?: string,
   name: string,
   tab_type: number,
   type?: string,
-};
-export type ProfileTabSummary = {
+|};
+export type ProfileTabSummary = {|
   id?: string,
   name: string,
   tab_type: number,
   type?: string,
-};
+|};
 export type ResponseStatus = "success" | "failure";
-export type SubModel_AdTargetingAttribution = {
+export type SubModel_AdTargetingAttribution = {|
   geo_postal_code?: string,
   geo_region?: string,
   is_age_matched?: boolean,
@@ -965,9 +965,9 @@ export type SubModel_AdTargetingAttribution = {
   is_geo_postal_code_matched?: boolean,
   is_geo_region_matched?: boolean,
   is_shopping_retargeting_matched?: boolean,
-};
-export type SubModel_AltLink = { domain?: string, url?: string };
-export type SubModel_AnalyticsStats = {
+|};
+export type SubModel_AltLink = {| domain?: string, url?: string |};
+export type SubModel_AnalyticsStats = {|
   clickthrough?: number,
   closeup?: number,
   impression?: number,
@@ -978,9 +978,9 @@ export type SubModel_AnalyticsStats = {
   video_start?: number,
   video_total_time?: number,
   video_views?: number,
-};
-export type SubModel_AppleId = { apple_id?: string };
-export type SubModel_Attribution = {
+|};
+export type SubModel_AppleId = {| apple_id?: string |};
+export type SubModel_Attribution = {|
   author_name?: string,
   author_url?: string,
   cc_url?: string,
@@ -994,8 +994,8 @@ export type SubModel_Attribution = {
   title?: string,
   url?: string,
   width?: string,
-};
-export type SubModel_CinematicData = {
+|};
+export type SubModel_CinematicData = {|
   duration?: number,
   height?: number,
   images?: {| [key: string]: mixed |},
@@ -1004,76 +1004,78 @@ export type SubModel_CinematicData = {
   src?: string,
   type?: string,
   width?: number,
-};
-export type SubModel_ClickThroughLinkQuality = {
+|};
+export type SubModel_ClickThroughLinkQuality = {|
   alternate_links?: Array<SubModel_AltLink>,
   is_inaccessible?: boolean,
-};
-export type SubModel_CollaboratorInviteCount = {
+|};
+export type SubModel_CollaboratorInviteCount = {|
   accepted?: number,
   contact_request_not_approved?: number,
   denied?: number,
   new?: number,
   pending_approval?: number,
-};
-export type SubModel_CoverPin = {
+|};
+export type SubModel_CoverPin = {|
   image_signature?: string,
   pin_id?: string,
   timestamp?: number,
-};
-export type SubModel_CreatorRecommendationReason = {
+|};
+export type SubModel_CreatorRecommendationReason = {|
   reason_description?: string,
   reason_str?: string,
   recommendation_reason_description?: string,
   recommendation_reason_details?: string,
   recommendation_reason_type?: number,
-};
-export type SubModel_DomainTrackingFormat = {
+|};
+export type SubModel_DomainTrackingFormat = {|
   base_url_regex?: string,
   query_params?: Array<string>,
   type?: number,
-};
-export type SubModel_DynamicAdData = { assets?: SubModel_DynamicAdDataAssets };
-export type SubModel_DynamicAdDataAssets = {
+|};
+export type SubModel_DynamicAdData = {|
+  assets?: SubModel_DynamicAdDataAssets,
+|};
+export type SubModel_DynamicAdDataAssets = {|
   cta_text?: string,
   position?: number,
   type?: string,
-};
-export type SubModel_Embed = {
+|};
+export type SubModel_Embed = {|
   height?: number,
   src?: string,
   subtype?: string,
   type?: string,
   width?: number,
-};
-export type SubModel_FeedbackOptionsWithRecommendationReason = {
+|};
+export type SubModel_FeedbackOptionsWithRecommendationReason = {|
   menu_options?:
     | FeedbackOptionsCustom
     | FeedbackOptionsDetailed
     | FeedbackOptionsSummary,
   recommendation_reason?: string,
-};
-export type SubModel_GatekeeperExperiment = { group?: string, key?: string };
-export type SubModel_ImageCrop = { max_y?: number, min_y?: number };
-export type SubModel_ImageDetails = {
+|};
+export type SubModel_GatekeeperExperiment = {| group?: string, key?: string |};
+export type SubModel_ImageCrop = {| max_y?: number, min_y?: number |};
+export type SubModel_ImageDetails = {|
   domain_color?: string,
   height?: number,
   type?: string,
   url?: string,
   width?: number,
-};
-export type SubModel_ImageDimensions = { height?: number, width?: number };
-export type SubModel_Interests = {
+|};
+export type SubModel_ImageDimensions = {| height?: number, width?: number |};
+export type SubModel_Interests = {|
   estimate?: number,
   id?: number,
   name?: string,
   score?: string,
   type?: string,
-};
-export type SubModel_IsConnected = { is_connected?: boolean };
-export type SubModel_Nags = { message?: string, type?: string };
-export type SubModel_Pin360Metadata = { stereo?: string, type?: string };
-export type SubModel_PinAnalyticsStats = {
+|};
+export type SubModel_IsConnected = {| is_connected?: boolean |};
+export type SubModel_Nags = {| message?: string, type?: string |};
+export type SubModel_Pin360Metadata = {| stereo?: string, type?: string |};
+export type SubModel_PinAnalyticsStats = {|
   "24h"?: SubModel_AnalyticsStats,
   "24h_realtime"?: SubModel_AnalyticsStats,
   "30d"?: SubModel_AnalyticsStats,
@@ -1085,32 +1087,32 @@ export type SubModel_PinAnalyticsStats = {
   all_time?: SubModel_AnalyticsStats,
   all_time_realtime?: SubModel_AnalyticsStats,
   type?: string,
-};
-export type SubModel_PrivacyPolicyRules = {
+|};
+export type SubModel_PrivacyPolicyRules = {|
   send_events_to_ad_networks?: boolean,
   send_events_to_facebook?: boolean,
   send_marketing_data?: boolean,
   send_pixel?: boolean,
-};
-export type SubModel_PromotedButton = {
+|};
+export type SubModel_PromotedButton = {|
   promote_button_destination?: string,
   promote_button_text?: string,
   show_promote_button?: boolean,
-};
-export type SubModel_RecommendationReason = {
+|};
+export type SubModel_RecommendationReason = {|
   reason?: string,
   reason_id?: string,
   reason_id_str?: string,
   reason_image?: string,
   through_interest?: string,
   through_properties?: {| [key: string]: mixed |},
-};
-export type SubModel_ResurrectionInfo = { resurrection_dt?: string };
-export type SubModel_Sponsorship = {
+|};
+export type SubModel_ResurrectionInfo = {| resurrection_dt?: string |};
+export type SubModel_Sponsorship = {|
   creator?: UserCustom | UserDetailed | UserSummary,
   sponsor?: UserCustom | UserDetailed | UserSummary,
-};
-export type SubModel_StelaVisualObject = {
+|};
+export type SubModel_StelaVisualObject = {|
   detection?: boolean,
   h?: number,
   index?: number,
@@ -1123,8 +1125,8 @@ export type SubModel_StelaVisualObject = {
   w?: number,
   x?: number,
   y?: number,
-};
-export type SubModel_TWITTER_FIELD_MAPPING_TYPES = {
+|};
+export type SubModel_TWITTER_FIELD_MAPPING_TYPES = {|
   description?: string,
   id?: string,
   location?: string,
@@ -1132,27 +1134,27 @@ export type SubModel_TWITTER_FIELD_MAPPING_TYPES = {
   profile_image_url?: string,
   screen_name?: string,
   url?: string,
-};
-export type SubModel_TitleAndDescription = {
+|};
+export type SubModel_TitleAndDescription = {|
   description?: string,
   title?: string,
-};
-export type SubModel_TopIngredient = { name?: string, slug?: string };
-export type SubModel_UserBoard = {
+|};
+export type SubModel_TopIngredient = {| name?: string, slug?: string |};
+export type SubModel_UserBoard = {|
   new_board_created?: BoardCustom | BoardDetailed | BoardSummary,
   pin?: PinCustom | PinDetailed | PinSummary,
-};
-export type SubModel_VerifiedIdentity = { name?: string, verified?: boolean };
-export type SubModel_VideoStatusMessage = {
+|};
+export type SubModel_VerifiedIdentity = {| name?: string, verified?: boolean |};
+export type SubModel_VideoStatusMessage = {|
   closeup?: string,
   subtitle?: string,
   title?: string,
-};
-export type SubModel_ViewTag = { id?: string, url?: string };
+|};
+export type SubModel_ViewTag = {| id?: string, url?: string |};
 export type TextTagCustom = {| [key: string]: mixed |};
 export type TextTagDetailed = {| [key: string]: mixed |};
 export type TextTagSummary = {| [key: string]: mixed |};
-export type UserCustom = {
+export type UserCustom = {|
   about?: string,
   active?: boolean,
   ads_customize_from_conversion?: boolean,
@@ -1327,8 +1329,8 @@ export type UserCustom = {
   video_upload_allowed?: boolean,
   video_views?: number,
   website_url?: ?string,
-};
-export type UserDetailed = {
+|};
+export type UserDetailed = {|
   about: string,
   active?: boolean,
   blocked_by_me?: boolean,
@@ -1395,8 +1397,8 @@ export type UserDetailed = {
   verified_identity: ?SubModel_VerifiedIdentity,
   verified_user_websites?: Array<string>,
   website_url?: ?string,
-};
-export type UserSummary = {
+|};
+export type UserSummary = {|
   first_name?: ?string,
   full_name?: string,
   gender?: string,
@@ -1408,45 +1410,45 @@ export type UserSummary = {
   last_name?: ?string,
   type?: string,
   username: string,
-};
+|};
 export type Wildcard_OneOfAny = {| [key: string]: mixed |};
 export type add_fields = Array<string>;
-export type api_error_200 = {
+export type api_error_200 = {|
   code: number,
   message: "Something went wrong while trying to save this Pin. Please try again.",
-} & ApiErrorEnvelope;
-export type api_error_2034 = {
+|} & ApiErrorEnvelope;
+export type api_error_2034 = {|
   code: number,
   message: "Sorry! You can only have up to 500 sections on a board.",
-} & ApiErrorEnvelope;
-export type api_error_2171 = {
+|} & ApiErrorEnvelope;
+export type api_error_2171 = {|
   code: number,
   message: "Please wait until your Pins are finished deleting.",
-} & ApiErrorEnvelope;
-export type api_error_2172 = {
+|} & ApiErrorEnvelope;
+export type api_error_2172 = {|
   code: number,
   message: "Please wait until your Pins are finished moving.",
-} & ApiErrorEnvelope;
-export type api_error_2173 = {
+|} & ApiErrorEnvelope;
+export type api_error_2173 = {|
   code: number,
   message: "Please wait until the previous board action finishes.",
-} & ApiErrorEnvelope;
-export type api_error_2174 = {
+|} & ApiErrorEnvelope;
+export type api_error_2174 = {|
   code: number,
   message: "Sorry! We don't support performing this action on a board of this type.",
-} & ApiErrorEnvelope;
-export type api_error_2611 = {
+|} & ApiErrorEnvelope;
+export type api_error_2611 = {|
   code: number,
   message: "Sorry! Something went wrong with your reaction.",
-} & ApiErrorEnvelope;
-export type api_error_32 = {
+|} & ApiErrorEnvelope;
+export type api_error_32 = {|
   code: number,
   message: "Something went wrong while trying to follow this user. Please try again.",
-} & ApiErrorEnvelope;
-export type api_error_96 = {
+|} & ApiErrorEnvelope;
+export type api_error_96 = {|
   code: number,
   message: "Invalid board name.",
-} & ApiErrorEnvelope;
+|} & ApiErrorEnvelope;
 export type base_scheme = "http" | "https";
 export type fields = Array<string>;
 export type render_style = "detailed" | "summary" | "all_fields";

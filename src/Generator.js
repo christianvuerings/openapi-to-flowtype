@@ -1,141 +1,152 @@
 // @flow
 
-import camelize from 'camelize';
+import camelize from "camelize";
 
-const EMPTY_OBJECT : any = '{ [key: string]: mixed }';
+const EMPTY_OBJECT: any = "{ [key: string]: mixed }";
 
 // OpenAPI data types are base on types supported by the JSON-Scheme Draft4.
 const typeMapping = {
-  array: 'Array<mixed>',
-  boolean: 'boolean',
-  integer: 'number',
-  number: 'number',
-  null: 'null',
-  object: 'Object',
-  Object: 'Object',
-  string: 'string',
-  enum: 'string',
-  mixed: 'mixed',
+  array: "Array<mixed>",
+  boolean: "boolean",
+  integer: "number",
+  number: "number",
+  null: "null",
+  object: "Object",
+  Object: "Object",
+  string: "string",
+  enum: "string",
+  mixed: "mixed",
 };
 
 const discriminatorMap = {
-  allOf: '&',
-  oneOf: '|',
-  anyOf: '|',
+  allOf: "&",
+  oneOf: "|",
+  anyOf: "|",
 };
 
-const stripBrackets = ( name : string ) => name.replace( /[[\]']+/g, '' );
+const stripBrackets = (name: string) => name.replace(/[[\]']+/g, "");
 
-const isRequired = ( propertyName : string, definition : Object ) : boolean => {
+const isRequired = (propertyName: string, definition: Object): boolean => {
   const result =
-    definition.required && definition.required.indexOf( propertyName ) >= 0;
+    definition.required && definition.required.indexOf(propertyName) >= 0;
   return result;
 };
 
-const isNullable = ( property : Object ) : boolean => property.nullable;
+const isNullable = (property: Object): boolean => property.nullable;
 
-const withExact = ( property : string ) : string => property.replace( /\{[^|}.]/g, '{|' ).replace( /[^|{.]\}/g, '|}' );
+const withExact = (property: string): string =>
+  property.replace(/\{[^|}.]/g, "{|").replace(/[^|{.]\}/g, "|}");
 
 export default class Generator {
+  exact: boolean = false;
+  verbose: boolean = false;
+  lowerCamelCase: boolean = false;
+  responses: boolean = false;
+  suffix: string = "";
+  log: string[][] = [];
 
-  exact : boolean = false;
-  verbose : boolean = false;
-  lowerCamelCase : boolean = false;
-  responses : boolean = false;
-  suffix : string = '';
-  log : string[][] = [];
-
-  definitionTypeName( ref : string ) {
+  definitionTypeName(ref: string) {
     const re = /#\/components\/schemas\/(.*)/;
-    const found = ref.match( re );
-    if ( !found ) {
-      return '';
+    const found = ref.match(re);
+    if (!found) {
+      return "";
     }
-    return found[ 1 ] + this.suffix;
+    return found[1] + this.suffix;
   }
 
-  appendToLog( ...args : string[] ) {
-    this.log.push( args );
+  appendToLog(...args: string[]) {
+    this.log.push(args);
   }
 
-  generate( specification : any ) : string {
+  generate(specification: any): string {
     try {
-      const output = '// @flow strict\n' + this.generateImpl( specification );
-      if ( this.verbose ) {
-        console.log( JSON.stringify( this.log, null, 4 ) );
+      const output = "// @flow strict\n" + this.generateImpl(specification);
+      if (this.verbose) {
+        console.log(JSON.stringify(this.log, null, 4));
       }
       return output;
-    } catch ( error ) {
-      if ( this.log.length ) {
-        const lastItems = this.log.reduce( ( acc, currentValue ) => {
-          acc[ currentValue[ 0 ] ] = currentValue[ 1 ];
+    } catch (error) {
+      if (this.log.length) {
+        const lastItems = this.log.reduce((acc, currentValue) => {
+          acc[currentValue[0]] = currentValue[1];
           return acc;
-        }, {} );
-        console.error( 'Exception location', lastItems );
+        }, {});
+        console.error("Exception location", lastItems);
       }
       throw error;
     }
   }
 
-  generateImpl( specification : any ) : string {
-    const toProcess : Map< string, any > = new Map();
-    for ( const [ key, schema ] of Object.entries( ( ( specification || EMPTY_OBJECT ).components || EMPTY_OBJECT ).schemas || EMPTY_OBJECT ) ) {
-      toProcess.set( key, schema );
+  generateImpl(specification: any): string {
+    const toProcess: Map<string, any> = new Map();
+    for (const [key, schema] of Object.entries(
+      ((specification || EMPTY_OBJECT).components || EMPTY_OBJECT).schemas ||
+        EMPTY_OBJECT
+    )) {
+      toProcess.set(key, schema);
     }
 
-    if ( this.responses ) {
-      for ( const byPath of Object.values( specification.paths || EMPTY_OBJECT ) ) {
+    if (this.responses) {
+      for (const byPath of Object.values(specification.paths || EMPTY_OBJECT)) {
         // $FlowFixMe
-        for ( const byMethod of Object.values( byPath ) ) {
-          // $FlowFixMe
-          for ( const byReturnCode of Object.values( byMethod.responses || EMPTY_OBJECT ) ) {
+        for (const byMethod of Object.values(byPath)) {
+          for (const byReturnCode of Object.values(
             // $FlowFixMe
-            for ( const byMime of Object.values( byReturnCode.content || EMPTY_OBJECT ) ) {
+            byMethod.responses || EMPTY_OBJECT
+          )) {
+            for (const byMime of Object.values(
+              // $FlowFixMe
+              byReturnCode.content || EMPTY_OBJECT
+            )) {
               // $FlowFixMe
               const { schema } = byMime;
-              if ( !schema ) continue;
-              if ( !schema.title ) continue;
-              toProcess.set( schema.title, schema );
+              if (!schema) continue;
+              if (!schema.title) continue;
+              toProcess.set(schema.title, schema);
             }
           }
         }
       }
     }
 
-    if ( toProcess.size === 0 ) {
-      throw new Error( 'There is no definitions in file, is it really OpenAPI 3.x?' );
+    if (toProcess.size === 0) {
+      throw new Error(
+        "There is no definitions in file, is it really OpenAPI 3.x?"
+      );
     }
 
-    const result : string[] = [];
-    for ( const [ definitionName, def ] of toProcess ) {
-      this.appendToLog( 'definitionName', definitionName );
-      const typeDefinition : string = `export type ${stripBrackets( definitionName )}${this.suffix} = ${this.propertiesTemplate(
-        this.propertiesList( def )
-      ).replace( /"/g, '' ).replace( /\\\\/g, '\\' )};`;
-      result.push( typeDefinition );
+    const result: string[] = [];
+    for (const [definitionName, def] of toProcess) {
+      this.appendToLog("definitionName", definitionName);
+      const typeDefinition: string = `export type ${stripBrackets(
+        definitionName
+      )}${this.suffix} = ${this.propertiesTemplate(this.propertiesList(def))
+        .replace(/"/g, "")
+        .replace(/\\\\/g, "\\")};`;
+      result.push(typeDefinition);
     }
 
-    return result.join( '\n' );
+    return result.join("\n");
   }
 
-  propertiesList( definition : any ) {
-    if ( 'allOf' in definition ) {
-      return definition.allOf.map( this.propertiesList, this );
+  propertiesList(definition: any) {
+    if ("allOf" in definition) {
+      return definition.allOf.map(this.propertiesList, this);
     }
 
-    if ( definition.$ref ) {
-      return { $ref: this.definitionTypeName( definition.$ref ) };
+    if (definition.$ref) {
+      return { $ref: this.definitionTypeName(definition.$ref) };
     }
 
-    if ( 'type' in definition && definition.type !== 'object' ) {
-      const response = this.typeFor( definition );
+    if ("type" in definition && definition.type !== "object") {
+      const response = this.typeFor(definition);
       // console.log( { response } );
       return response;
     }
 
     if (
       !definition.properties ||
-      Object.keys( definition.properties ).length === 0
+      Object.keys(definition.properties).length === 0
     ) {
       return EMPTY_OBJECT;
     }
@@ -144,102 +155,112 @@ export default class Generator {
     return Object.assign.apply(
       null,
       // $FlowFixMe
-      Object.keys( definition.properties ).reduce(
-        ( properties : Object[], propName : string ) => {
-          const property = definition.properties[ propName ];
-          this.appendToLog( 'propertyName', propName );
-          this.appendToLog( 'property', property );
-          const arr = properties.concat( {
-            [ this.propertyKeyForDefinition( propName, definition ) ]: `${
-              isNullable( property ) ? '?' : ''
-            }${this.typeFor( property )}`,
-          } );
+      Object.keys(definition.properties).reduce(
+        (properties: Object[], propName: string) => {
+          const property = definition.properties[propName];
+          this.appendToLog("propertyName", propName);
+          this.appendToLog("property", property);
+          const arr = properties.concat({
+            [this.propertyKeyForDefinition(propName, definition)]: `${
+              isNullable(property) ? "?" : ""
+            }${this.typeFor(property)}`,
+          });
           return arr;
         },
-        [ {} ]
+        [{}]
       )
     );
   }
 
-  propertiesTemplate( properties : Object | Object[] | string ) : string {
-    if ( typeof properties === 'string' ) {
-      return withExact( properties );
+  propertiesTemplate(properties: Object | Object[] | string): string {
+    if (typeof properties === "string") {
+      return withExact(properties);
     }
 
-    if ( Array.isArray( properties ) ) {
+    if (Array.isArray(properties)) {
       return properties
-        .map( property => {
-          let p = property.$ref ? `& ${property.$ref}` : JSON.stringify( property );
-          if ( !property.$ref && this.exact ) {
-            p = withExact( p );
+        .map((property) => {
+          let p = property.$ref
+            ? `& ${property.$ref}`
+            : JSON.stringify(property);
+          if (!property.$ref && this.exact) {
+            p = withExact(p);
           }
           return p;
-        } )
-        .sort( a => ( a[ 0 ] === '&' ? 1 : -1 ) )
-        .join( ' ' );
+        })
+        .sort((a) => (a[0] === "&" ? 1 : -1))
+        .join(" ");
     }
 
-    if ( this.exact ) {
-      return withExact( JSON.stringify( properties ) );
+    if (this.exact) {
+      return withExact(JSON.stringify(properties));
     }
-    return JSON.stringify( properties );
+    return JSON.stringify(properties);
   }
 
-  propertyKeyForDefinition(
-    propName : string,
-    definition : Object
-  ) : string {
-    let resolvedPropName = propName.indexOf( '-' ) > 0 || /^\d/.test(propName) ? `'${propName}'` : propName;
-    if ( this.lowerCamelCase ) {
-      resolvedPropName = camelize( resolvedPropName );
+  propertyKeyForDefinition(propName: string, definition: Object): string {
+    let resolvedPropName =
+      propName.indexOf("-") > 0 || /^\d/.test(propName)
+        ? `'${propName}'`
+        : propName;
+    if (this.lowerCamelCase) {
+      resolvedPropName = camelize(resolvedPropName);
     }
-    return `${resolvedPropName}${isRequired( propName, definition ) ? '' : '?'}`;
+    return `${resolvedPropName}${isRequired(propName, definition) ? "" : "?"}`;
   }
 
-  typeFor( property : any ) : string {
-    if ( property.type === 'array' ) {
-      if ( 'oneOf' in property.items ) {
+  typeFor(property: any): string {
+    if (property.type === "array") {
+      if ("oneOf" in property.items) {
         return `Array<${property.items.oneOf
-          .map( e =>
-            e.type === 'object'
-              ? this.propertiesTemplate( this.propertiesList( e.items ) ).replace( /"/g, '' )
-              : this.typeFor( e )
+          .map((e) =>
+            e.type === "object"
+              ? this.propertiesTemplate(this.propertiesList(e.items)).replace(
+                  /"/g,
+                  ""
+                )
+              : this.typeFor(e)
           )
-          .join( ' | ' )}>`;
-      } else if ( '$ref' in property.items ) {
-        return `Array<${this.definitionTypeName( property.items.$ref )}>`;
-      } else if ( property.items.type === 'object' ) {
-        const child = this.propertiesTemplate( this.propertiesList( property.items ) ).replace(
-          /"/g,
-          ''
-        );
+          .join(" | ")}>`;
+      } else if ("$ref" in property.items) {
+        return `Array<${this.definitionTypeName(property.items.$ref)}>`;
+      } else if (property.items.type === "object") {
+        const child = this.propertiesTemplate(
+          this.propertiesList(property.items)
+        ).replace(/"/g, "");
         return `Array<${child}>`;
       }
-      const type = property.items.type || 'mixed';
-      return `Array<${typeMapping[ type ]}>`;
-    } else if ( property.type === 'string' && 'enum' in property ) {
-      return property.enum.map( e => `'${e.replace( /'/g, '\\\'' )}'` ).join( ' | ' );
-    } else if ( Array.isArray( property.type ) ) {
-      return property.type.map( t => typeMapping[ t ] ).join( ' | ' );
-    } else if (
-      Object.keys( property ).some( d => discriminatorMap[ d ] )
-    ) {
-      const discriminators = Object.keys( property ).filter( d => discriminatorMap[ d ] );
+      const type = property.items.type || "mixed";
+      return `Array<${typeMapping[type]}>`;
+    } else if (property.type === "string" && "enum" in property) {
+      return property.enum
+        .map((e) => `'${e.replace(/'/g, "\\'")}'`)
+        .join(" | ");
+    } else if (Array.isArray(property.type)) {
+      return property.type.map((t) => typeMapping[t]).join(" | ");
+    } else if (Object.keys(property).some((d) => discriminatorMap[d])) {
+      const discriminators = Object.keys(property).filter(
+        (d) => discriminatorMap[d]
+      );
 
-      if ( !discriminators.length ) {
-        throw new Error( 'Could not find a discriminator' );
-      } else if ( discriminators.length > 1 ) {
-        throw new Error( `Avoid multiple discriminators: ${discriminators.join( ' / ' )}` );
+      if (!discriminators.length) {
+        throw new Error("Could not find a discriminator");
+      } else if (discriminators.length > 1) {
+        throw new Error(
+          `Avoid multiple discriminators: ${discriminators.join(" / ")}`
+        );
       }
 
-      const discriminator = discriminators[ 0 ];
-      return property[ discriminator ]
-        .map( p => this.typeFor( p ) )
-        .join( discriminatorMap[ discriminator ] );
-    } else if ( property.type === 'object' ) {
-      return this.propertiesTemplate( this.propertiesList( property ) ).replace( /"/g, '' );
+      const discriminator = discriminators[0];
+      return property[discriminator]
+        .map((p) => this.typeFor(p))
+        .join(discriminatorMap[discriminator]);
+    } else if (property.type === "object") {
+      return this.propertiesTemplate(this.propertiesList(property)).replace(
+        /"/g,
+        ""
+      );
     }
-    return typeMapping[ property.type ] || this.definitionTypeName( property.$ref );
+    return typeMapping[property.type] || this.definitionTypeName(property.$ref);
   }
-
 }
