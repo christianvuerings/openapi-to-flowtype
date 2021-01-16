@@ -15,9 +15,9 @@ export const writeToFile = (dist: string = "./flowtype.js", result: string) => {
 export const isUrl = (value: string): boolean =>
   value.match(/https?:\/\//) !== null;
 
-export const distFile = (p: Object, inputFileName: string): string => {
-  if (p.destination) {
-    return p.destination;
+export const distFile = (options: Object, inputFileName: string): string => {
+  if (options.destination) {
+    return options.destination;
   }
   if (isUrl(inputFileName)) {
     return "./flowtype.js";

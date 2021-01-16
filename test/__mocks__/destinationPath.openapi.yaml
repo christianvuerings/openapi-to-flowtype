@@ -1,0 +1,12 @@
+info:
+  title: Pin API
+  version: 0.0.1
+openapi: 3.0.3
+components:
+  schemas:
+    ResponseStatus:
+      title: ResponseStatus
+      description: An enumeration.
+      enum:
+      - success
+      - failure
