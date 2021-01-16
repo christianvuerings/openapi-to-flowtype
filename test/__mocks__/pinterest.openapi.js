@@ -967,6 +967,18 @@ export type SubModel_AdTargetingAttribution = {|
   is_shopping_retargeting_matched?: boolean,
 |};
 export type SubModel_AltLink = {| domain?: string, url?: string |};
+export type SubModel_AnalyticsStats = {|
+  clickthrough?: number,
+  closeup?: number,
+  impression?: number,
+  last_updated?: string,
+  save?: number,
+  video_average_time?: number,
+  video_p95_views?: number,
+  video_start?: number,
+  video_total_time?: number,
+  video_views?: number,
+|};
 export type SubModel_AppleId = {| apple_id?: string |};
 export type SubModel_Attribution = {|
   author_name?: string,
@@ -1063,6 +1075,19 @@ export type SubModel_Interests = {|
 export type SubModel_IsConnected = {| is_connected?: boolean |};
 export type SubModel_Nags = {| message?: string, type?: string |};
 export type SubModel_Pin360Metadata = {| stereo?: string, type?: string |};
+export type SubModel_PinAnalyticsStats = {|
+  "24h"?: SubModel_AnalyticsStats,
+  "24h_realtime"?: SubModel_AnalyticsStats,
+  "30d"?: SubModel_AnalyticsStats,
+  "30d_realtime"?: SubModel_AnalyticsStats,
+  "7d"?: SubModel_AnalyticsStats,
+  "7d_realtime"?: SubModel_AnalyticsStats,
+  "90d"?: SubModel_AnalyticsStats,
+  "90d_realtime"?: SubModel_AnalyticsStats,
+  all_time?: SubModel_AnalyticsStats,
+  all_time_realtime?: SubModel_AnalyticsStats,
+  type?: string,
+|};
 export type SubModel_PrivacyPolicyRules = {|
   send_events_to_ad_networks?: boolean,
   send_events_to_facebook?: boolean,

@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "browserslist": "node 14",
   "scripts": {
-    "test": "npm run eslint:check && npm run flow:check && npm run test:jest",
+    "test": "npm run eslint:check && npm run flow:check && npm run test:jest && npm run prettier:check",
     "test:jest": "jest",
     "test:jest:watch": "jest --watch",
     "build": "babel ./src -d ./dist",
@@ -14,6 +14,7 @@
     "eslint:check": "eslint --ignore-pattern \"!.eslintrc.js\".eslintrc.js babel.config.js src/**/*.js test/**/*.js",
     "eslint:fix": "eslint --ignore-pattern \"!.eslintrc.js\" --fix .eslintrc.js babel.config.js src/**/*.js test/**/*.js",
     "preversion": "npm run test && npm run build",
+    "prettier:check": "prettier --check .",
     "version": "npm publish --access=public",
     "postversion": "git push origin && git push origin --tags"
   },
@@ -47,7 +48,6 @@
     "commander": "^7.0.0",
     "core-js": "^3.8.2",
     "js-yaml": "^3.14.1",
-    "prettier": "^2.2.1",
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
@@ -56,13 +56,14 @@
     "camelize": "^1.0.0",
     "eslint": "^7.18.0",
     "eslint-plugin-flowtype": "^5.2.0",
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "prettier": "2.2.1"
   },
   "jest": {
-    "testRegex": "(/test/[^__mocks__].*|(\\.|/)(test|spec))\\.jsx?$",
     "collectCoverageFrom": [
-      "src/index.js"
+      "src/**/**.js"
     ],
-    "collectCoverage": true
+    "collectCoverage": true,
+    "globalSetup": "./jest.setup.js"
   }
 }

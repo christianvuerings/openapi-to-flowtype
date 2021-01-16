@@ -2,14 +2,14 @@
 
 Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the following changes:
 
-* Use `{ [key: string] : mixed}` for `object` types without any properties. Previously this was typed as `{}` which causes issues in exact mode
-* Fix `Array<undefined>` output types by falling back to `mixed` when no type is defined
-* Replace `Array<*>` with `Array<mixed>`
-* Add pinterest open api schema as a test
-* 0.9.3: fix issue with discriminator (anyOf, oneOf allOf) not being the first item
-* 0.9.4: fix --exact with top level object types & add --verbose option
-* 0.9.5: fix string escaping
-* 0.9.6: fix string escaping within properties
+- Use `{ [key: string] : mixed}` for `object` types without any properties. Previously this was typed as `{}` which causes issues in exact mode
+- Fix `Array<undefined>` output types by falling back to `mixed` when no type is defined
+- Replace `Array<*>` with `Array<mixed>`
+- Add pinterest open api schema as a test
+- 0.9.3: fix issue with discriminator (anyOf, oneOf allOf) not being the first item
+- 0.9.4: fix --exact with top level object types & add --verbose option
+- 0.9.5: fix string escaping
+- 0.9.6: fix string escaping within properties
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 
@@ -75,8 +75,7 @@ export type Cat = { longLongKey?: string };
 swagger file like following
 
 ```yaml
-...
-
+---
 components:
   schemas:
     Order:
@@ -98,9 +97,9 @@ components:
           type: "string"
           description: "Order Status"
           enum:
-          - "placed"
-          - "approved"
-          - "delivered"
+            - "placed"
+            - "approved"
+            - "delivered"
         complete:
           type: "boolean"
           default: false
@@ -116,8 +115,6 @@ components:
           type: "string"
       xml:
         name: "Category"
-...
-
 ```
 
 Output will be like below
@@ -129,21 +126,22 @@ export type Order = {
   petId?: number,
   quantity?: number,
   shipDate?: string,
-  status?: 'placed' | 'approved' | 'delivered',
-  complete?: boolean
+  status?: "placed" | "approved" | "delivered",
+  complete?: boolean,
 };
 export type Category = { id?: number, name?: string };
-
 ```
 
 ## Requirements
-* Node 12+ is required
+
+- Node 12+ is required
 
 ## Tests
 
 `npm test`
 
 # Testimonials
+
 Based on [swagger-to-flowtype](https://github.com/yayoc/swagger-to-flowtype) by [yayoc](http://yayoc.com).
 
 [npm-image]: https://img.shields.io/npm/v/openapi-to-flowtype.svg?style=flat-square

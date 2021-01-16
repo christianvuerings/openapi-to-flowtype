@@ -2767,6 +2767,29 @@ components:
         url:
           type: string
       type: object
+    SubModel_AnalyticsStats:
+      properties:
+        clickthrough:
+          type: integer
+        closeup:
+          type: integer
+        impression:
+          type: integer
+        last_updated:
+          type: string
+        save:
+          type: integer
+        video_average_time:
+          type: integer
+        video_p95_views:
+          type: integer
+        video_start:
+          type: integer
+        video_total_time:
+          type: integer
+        video_views:
+          type: integer
+      type: object
     SubModel_AppleId:
       properties:
         apple_id:
@@ -2977,6 +3000,31 @@ components:
       properties:
         stereo:
           type: string
+        type:
+          type: string
+      type: object
+    SubModel_PinAnalyticsStats:
+      properties:
+        24h:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        24h_realtime:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        30d:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        30d_realtime:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        7d:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        7d_realtime:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        90d:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        90d_realtime:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        all_time:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
+        all_time_realtime:
+          $ref: '#/components/schemas/SubModel_AnalyticsStats'
         type:
           type: string
       type: object
