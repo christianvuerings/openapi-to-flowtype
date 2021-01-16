@@ -6,7 +6,7 @@ const EMPTY_OBJECT: any = "{ [key: string]: mixed }";
 
 // OpenAPI data types are base on types supported by the JSON-Scheme Draft4.
 const typeMapping = {
-  array: "Array<mixed>",
+  array: "$ReadOnlyArray<mixed>",
   boolean: "boolean",
   integer: "number",
   number: "number",
@@ -43,7 +43,7 @@ export default class Generator {
   lowerCamelCase: boolean = false;
   responses: boolean = false;
   suffix: string = "";
-  log: string[][] = [];
+  log: $ReadOnlyArray<$ReadOnlyArray<string>> = [];
 
   definitionTypeName(ref: string) {
     const re = /#\/components\/schemas\/(.*)/;
@@ -54,7 +54,8 @@ export default class Generator {
     return found[1] + this.suffix;
   }
 
-  appendToLog(...args: string[]) {
+  appendToLog(...args: $ReadOnlyArray<string>) {
+    // $FlowFixMe
     this.log.push(args);
   }
 
@@ -156,7 +157,7 @@ export default class Generator {
       null,
       // $FlowFixMe
       Object.keys(definition.properties).reduce(
-        (properties: Object[], propName: string) => {
+        (properties: $ReadOnlyArray<Object>, propName: string) => {
           const property = definition.properties[propName];
           this.appendToLog("propertyName", propName);
           this.appendToLog("property", property);
@@ -172,7 +173,9 @@ export default class Generator {
     );
   }
 
-  propertiesTemplate(properties: Object | Object[] | string): string {
+  propertiesTemplate(
+    properties: Object | $ReadOnlyArray<Object> | string
+  ): string {
     if (typeof properties === "string") {
       return withExact(properties);
     }
@@ -212,7 +215,7 @@ export default class Generator {
   typeFor(property: any): string {
     if (property.type === "array") {
       if ("oneOf" in property.items) {
-        return `Array<${property.items.oneOf
+        return `$ReadOnlyArray<${property.items.oneOf
           .map((e) =>
             e.type === "object"
               ? this.propertiesTemplate(this.propertiesList(e.items)).replace(
@@ -223,15 +226,17 @@ export default class Generator {
           )
           .join(" | ")}>`;
       } else if ("$ref" in property.items) {
-        return `Array<${this.definitionTypeName(property.items.$ref)}>`;
+        return `$ReadOnlyArray<${this.definitionTypeName(
+          property.items.$ref
+        )}>`;
       } else if (property.items.type === "object") {
         const child = this.propertiesTemplate(
           this.propertiesList(property.items)
         ).replace(/"/g, "");
-        return `Array<${child}>`;
+        return `$ReadOnlyArray<${child}>`;
       }
       const type = property.items.type || "mixed";
-      return `Array<${typeMapping[type]}>`;
+      return `$ReadOnlyArray<${typeMapping[type]}>`;
     } else if (property.type === "string" && "enum" in property) {
       return property.enum
         .map((e) => `'${e.replace(/'/g, "\\'")}'`)

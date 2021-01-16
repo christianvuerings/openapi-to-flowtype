@@ -8,8 +8,8 @@ export type ApiBookmarkedEnvelope = {|
     | {| [key: string]: mixed |}
     | boolean
     | number
-    | Array<mixed>,
-  debug_logs?: Array<{| [key: string]: mixed |}>,
+    | $ReadOnlyArray<mixed>,
+  debug_logs?: $ReadOnlyArray<{| [key: string]: mixed |}>,
   endpoint_name: string,
   message: string,
   message_detail?: string,
@@ -24,8 +24,8 @@ export type ApiEnvelope = {|
     | {| [key: string]: mixed |}
     | boolean
     | number
-    | Array<mixed>,
-  debug_logs?: Array<{| [key: string]: mixed |}>,
+    | $ReadOnlyArray<mixed>,
+  debug_logs?: $ReadOnlyArray<{| [key: string]: mixed |}>,
   endpoint_name: string,
   message: string,
   message_detail?: string,
@@ -40,8 +40,8 @@ export type ApiErrorEnvelope = {|
     | {| [key: string]: mixed |}
     | boolean
     | number
-    | Array<mixed>,
-  debug_logs?: Array<{| [key: string]: mixed |}>,
+    | $ReadOnlyArray<mixed>,
+  debug_logs?: $ReadOnlyArray<{| [key: string]: mixed |}>,
   endpoint_name: string,
   error?: {| [key: string]: mixed |},
   message: string,
@@ -56,11 +56,11 @@ export type BoardActionLockCustom = {| is_origin?: ?boolean |};
 export type BoardActionLockDetailed = {| is_origin?: ?boolean |};
 export type BoardActionLockSummary = {| is_origin?: ?boolean |};
 export type BoardCustom = {|
-  access?: Array<Enum_Access>,
+  access?: $ReadOnlyArray<Enum_Access>,
   allow_homefeed_recommendations?: boolean,
-  annotations?: ?Array<string>,
+  annotations?: ?$ReadOnlyArray<string>,
   archived_by_me_at?: ?string,
-  blocking_actions?: ?Array<
+  blocking_actions?: ?$ReadOnlyArray<
     BoardActionLockCustom | BoardActionLockDetailed | BoardActionLockSummary
   >,
   board_activity_count?: number,
@@ -73,7 +73,7 @@ export type BoardCustom = {|
   collaborator_count?: number,
   collaborator_invite_counts?: SubModel_CollaboratorInviteCount,
   collaborator_invites_enabled?: boolean,
-  collaborator_permissions?: Array<number>,
+  collaborator_permissions?: $ReadOnlyArray<number>,
   collaborator_permissions_setting?: ?number,
   collaborator_requests_enabled?: boolean,
   cover_images?: ?SubModel_ImageDetails,
@@ -81,7 +81,7 @@ export type BoardCustom = {|
   created_at?: ?string,
   debug?: ?string,
   description?: ?string,
-  eligible_pin_type_filters?: Array<
+  eligible_pin_type_filters?: $ReadOnlyArray<
     PinTypeFilterCustom | PinTypeFilterDetailed | PinTypeFilterSummary
   >,
   event_date?: ?string,
@@ -128,7 +128,7 @@ export type BoardCustom = {|
   viewer_invitation?: ?{| [key: string]: mixed |},
 |};
 export type BoardDetailed = {|
-  access?: Array<Enum_Access>,
+  access?: $ReadOnlyArray<Enum_Access>,
   allow_homefeed_recommendations?: boolean,
   board_activity_count?: number,
   board_note_count?: ?number,
@@ -138,7 +138,7 @@ export type BoardDetailed = {|
   collaborated_by_me?: boolean,
   collaborator_count?: number,
   collaborator_invites_enabled: boolean,
-  collaborator_permissions?: Array<number>,
+  collaborator_permissions?: $ReadOnlyArray<number>,
   collaborator_permissions_setting?: ?number,
   collaborator_requests_enabled: boolean,
   created_at?: ?string,
@@ -543,14 +543,14 @@ export type GalleryItemCustom = {| [key: string]: mixed |};
 export type GalleryItemDetailed = {| [key: string]: mixed |};
 export type GalleryItemSummary = {| [key: string]: mixed |};
 export type PinCustom = {|
-  access?: Array<Enum_Access>,
+  access?: $ReadOnlyArray<Enum_Access>,
   activity?: ?Enum_ActionType,
   activity_timestamp?: ?number,
   ad_creative_type?: Enum_CreativeType,
   ad_destination_url?: ?string,
   ad_match_reason?: ?Enum_MatchReason,
   ad_targeting_attribution?: SubModel_AdTargetingAttribution,
-  additional_hide_reasons?: Array<Enum_RecommendationComplaintReason>,
+  additional_hide_reasons?: $ReadOnlyArray<Enum_RecommendationComplaintReason>,
   alt_text?: ?string,
   analytics?: {| [key: string]: mixed |},
   attribution?: ?SubModel_Attribution,
@@ -576,16 +576,16 @@ export type PinCustom = {|
   comments_disabled?: boolean,
   content_sensitivity?: {| [key: string]: mixed |},
   created_at?: ?string,
-  creative_types?: ?Array<Enum_CreativeTypes>,
+  creative_types?: ?$ReadOnlyArray<Enum_CreativeTypes>,
   creator_analytics?: ?{| [key: string]: mixed |},
   cta_text?: ?string,
   dark_profile_link?: string,
-  deb_ads?: Array<string>,
-  deb_all_signals?: Array<string>,
-  deb_content_quality?: Array<string>,
-  deb_inclusive_product?: Array<string>,
-  deb_shopping?: Array<string>,
-  deb_trust_and_safety?: Array<string>,
+  deb_ads?: $ReadOnlyArray<string>,
+  deb_all_signals?: $ReadOnlyArray<string>,
+  deb_content_quality?: $ReadOnlyArray<string>,
+  deb_inclusive_product?: $ReadOnlyArray<string>,
+  deb_shopping?: $ReadOnlyArray<string>,
+  deb_trust_and_safety?: $ReadOnlyArray<string>,
   debug?: ?{| [key: string]: mixed |},
   debug_info_html?: ?string,
   description?: ?string,
@@ -593,16 +593,18 @@ export type PinCustom = {|
   destination_url_type?: ?Enum_DestinationUrlType,
   did_it_disabled?: boolean,
   domain?: string,
-  domain_tracking_params?: Array<SubModel_DomainTrackingFormat>,
+  domain_tracking_params?: $ReadOnlyArray<SubModel_DomainTrackingFormat>,
   dominant_color?: ?string,
   done_by_board_contributors?: boolean,
   done_by_me?: boolean,
   dynamic_ad_data?: SubModel_DynamicAdData,
-  edited_fields?: Array<string>,
+  edited_fields?: $ReadOnlyArray<string>,
   embed?: ?SubModel_Embed,
   feedback_options?: ?SubModel_FeedbackOptionsWithRecommendationReason,
   flex_grid_style?: ?{| [key: string]: mixed |},
-  gallery?: Array<GalleryItemCustom | GalleryItemDetailed | GalleryItemSummary>,
+  gallery?: $ReadOnlyArray<
+    GalleryItemCustom | GalleryItemDetailed | GalleryItemSummary
+  >,
   grid_description?: ?string,
   grid_title?: string,
   grid_title_ads_experiment?: string,
@@ -610,7 +612,7 @@ export type PinCustom = {|
   has_been_promoted?: boolean,
   has_male_category?: ?boolean,
   has_required_attribution_provider?: boolean,
-  hashtags?: Array<string>,
+  hashtags?: $ReadOnlyArray<string>,
   headline_text?: string,
   id?: string,
   image_crop?: ?SubModel_ImageCrop,
@@ -672,7 +674,7 @@ export type PinCustom = {|
   meta_title_description?: SubModel_TitleAndDescription,
   method?: Enum_PinMethods,
   mobile_link?: ?string,
-  multiple_links?: ?Array<string>,
+  multiple_links?: ?$ReadOnlyArray<string>,
   not_promotable_reason?: ?Enum_NoPromotableReason,
   pin360?: ?SubModel_Pin360Metadata,
   pin_attribution?:
@@ -681,7 +683,7 @@ export type PinCustom = {|
     | AttributionsSummary,
   pin_stats?: ?{| [key: string]: mixed |},
   pinned_to_board?: ?{| [key: string]: mixed |},
-  prefetch_asset_urls?: Array<string>,
+  prefetch_asset_urls?: $ReadOnlyArray<string>,
   price_currency?: string,
   price_value?: number,
   privacy?: Enum_Privacy,
@@ -701,12 +703,12 @@ export type PinCustom = {|
   repin_count?: number,
   requires_advertiser_attribution?: boolean,
   rich_merchant_name?: ?string,
-  rich_recipe_top_ingredients?: Array<SubModel_TopIngredient>,
+  rich_recipe_top_ingredients?: $ReadOnlyArray<SubModel_TopIngredient>,
   root_pin_id?: string,
   scene_data?: {| [key: string]: mixed |},
   search_query?: ?string,
   shareable_url?: string,
-  shopping_flags?: Array<number>,
+  shopping_flags?: $ReadOnlyArray<number>,
   should_autoplay?: boolean,
   should_prefetch?: boolean,
   should_preload?: boolean,
@@ -723,25 +725,27 @@ export type PinCustom = {|
   unified_user_note?: ?string,
   upsell_audience_size?: ?SubModel_Interests,
   url_with_text?: string,
-  user_mention_tags?: ?Array<TextTagCustom | TextTagDetailed | TextTagSummary>,
+  user_mention_tags?: ?$ReadOnlyArray<
+    TextTagCustom | TextTagDetailed | TextTagSummary
+  >,
   video_signature?: ?string,
   video_status?: ?Enum_VideoStatus,
   video_status_message?: ?SubModel_VideoStatusMessage,
-  view_tags?: ?Array<SubModel_ViewTag>,
+  view_tags?: ?$ReadOnlyArray<SubModel_ViewTag>,
   virtual_try_on_data?: {| [key: string]: mixed |},
   virtual_try_on_type?: Enum_VirtualTryOnPinType,
-  visual_objects?: Array<SubModel_StelaVisualObject>,
+  visual_objects?: $ReadOnlyArray<SubModel_StelaVisualObject>,
   visual_search_attrs?: ?{| [key: string]: mixed |},
 |};
 export type PinDetailed = {|
-  access?: Array<Enum_Access>,
+  access?: $ReadOnlyArray<Enum_Access>,
   activity?: ?Enum_ActionType,
   activity_timestamp?: ?number,
   ad_creative_type?: Enum_CreativeType,
   ad_destination_url?: ?string,
   ad_match_reason: ?Enum_MatchReason,
   ad_targeting_attribution?: SubModel_AdTargetingAttribution,
-  additional_hide_reasons: Array<Enum_RecommendationComplaintReason>,
+  additional_hide_reasons: $ReadOnlyArray<Enum_RecommendationComplaintReason>,
   alt_text: ?string,
   analytics?: {| [key: string]: mixed |},
   attribution?: ?SubModel_Attribution,
@@ -766,23 +770,23 @@ export type PinDetailed = {|
   created_at: ?string,
   cta_text?: ?string,
   dark_profile_link?: string,
-  deb_ads?: Array<string>,
-  deb_all_signals?: Array<string>,
-  deb_content_quality?: Array<string>,
-  deb_inclusive_product?: Array<string>,
-  deb_shopping?: Array<string>,
-  deb_trust_and_safety?: Array<string>,
+  deb_ads?: $ReadOnlyArray<string>,
+  deb_all_signals?: $ReadOnlyArray<string>,
+  deb_content_quality?: $ReadOnlyArray<string>,
+  deb_inclusive_product?: $ReadOnlyArray<string>,
+  deb_shopping?: $ReadOnlyArray<string>,
+  deb_trust_and_safety?: $ReadOnlyArray<string>,
   debug?: ?{| [key: string]: mixed |},
   debug_info_html: ?string,
   description?: ?string,
   destination_url_type?: ?Enum_DestinationUrlType,
   did_it_disabled?: boolean,
   domain?: string,
-  domain_tracking_params?: Array<SubModel_DomainTrackingFormat>,
+  domain_tracking_params?: $ReadOnlyArray<SubModel_DomainTrackingFormat>,
   dominant_color?: ?string,
   done_by_board_contributors?: boolean,
   dynamic_ad_data?: SubModel_DynamicAdData,
-  edited_fields?: Array<string>,
+  edited_fields?: $ReadOnlyArray<string>,
   embed?: ?SubModel_Embed,
   feedback_options?: ?SubModel_FeedbackOptionsWithRecommendationReason,
   flex_grid_style: ?{| [key: string]: mixed |},
@@ -791,7 +795,7 @@ export type PinDetailed = {|
   grid_title_ads_experiment?: string,
   has_been_promoted: boolean,
   has_required_attribution_provider?: boolean,
-  hashtags?: Array<string>,
+  hashtags?: $ReadOnlyArray<string>,
   headline_text?: string,
   id?: string,
   image_crop?: ?SubModel_ImageCrop,
@@ -840,7 +844,7 @@ export type PinDetailed = {|
   matched_user_interest: ?string,
   meta_title_description?: SubModel_TitleAndDescription,
   method?: Enum_PinMethods,
-  multiple_links?: ?Array<string>,
+  multiple_links?: ?$ReadOnlyArray<string>,
   not_promotable_reason?: ?Enum_NoPromotableReason,
   pin360?: ?SubModel_Pin360Metadata,
   pin_attribution?:
@@ -848,7 +852,7 @@ export type PinDetailed = {|
     | AttributionsDetailed
     | AttributionsSummary,
   pin_stats?: ?{| [key: string]: mixed |},
-  prefetch_asset_urls?: Array<string>,
+  prefetch_asset_urls?: $ReadOnlyArray<string>,
   price_currency?: string,
   price_value: number,
   privacy?: Enum_Privacy,
@@ -864,11 +868,11 @@ export type PinDetailed = {|
   recommendation_reason?: ?SubModel_RecommendationReason,
   repin_count: number,
   requires_advertiser_attribution?: boolean,
-  rich_recipe_top_ingredients?: Array<SubModel_TopIngredient>,
+  rich_recipe_top_ingredients?: $ReadOnlyArray<SubModel_TopIngredient>,
   scene_data?: {| [key: string]: mixed |},
   search_query?: ?string,
   shareable_url?: string,
-  shopping_flags?: Array<number>,
+  shopping_flags?: $ReadOnlyArray<number>,
   should_autoplay: boolean,
   should_prefetch?: boolean,
   should_preload?: boolean,
@@ -882,10 +886,12 @@ export type PinDetailed = {|
   tracking_params?: ?string,
   type?: string,
   unified_user_note?: ?string,
-  user_mention_tags?: ?Array<TextTagCustom | TextTagDetailed | TextTagSummary>,
+  user_mention_tags?: ?$ReadOnlyArray<
+    TextTagCustom | TextTagDetailed | TextTagSummary
+  >,
   video_status?: ?Enum_VideoStatus,
   video_status_message?: ?SubModel_VideoStatusMessage,
-  view_tags: ?Array<SubModel_ViewTag>,
+  view_tags: ?$ReadOnlyArray<SubModel_ViewTag>,
   visual_search_attrs?: ?{| [key: string]: mixed |},
 |};
 export type PinSummary = {|
@@ -1006,7 +1012,7 @@ export type SubModel_CinematicData = {|
   width?: number,
 |};
 export type SubModel_ClickThroughLinkQuality = {|
-  alternate_links?: Array<SubModel_AltLink>,
+  alternate_links?: $ReadOnlyArray<SubModel_AltLink>,
   is_inaccessible?: boolean,
 |};
 export type SubModel_CollaboratorInviteCount = {|
@@ -1030,7 +1036,7 @@ export type SubModel_CreatorRecommendationReason = {|
 |};
 export type SubModel_DomainTrackingFormat = {|
   base_url_regex?: string,
-  query_params?: Array<string>,
+  query_params?: $ReadOnlyArray<string>,
   type?: number,
 |};
 export type SubModel_DynamicAdData = {|
@@ -1173,7 +1179,7 @@ export type UserCustom = {|
   commerce_module_data?: ?{| [key: string]: mixed |},
   community_display_name?: string,
   community_role?: ?Enum_CommunityRole,
-  community_roles?: Array<Enum_CommunityRole>,
+  community_roles?: $ReadOnlyArray<Enum_CommunityRole>,
   connected_to_dropbox?: boolean,
   connected_to_etsy?: boolean,
   connected_to_facebook?: boolean,
@@ -1194,7 +1200,7 @@ export type UserCustom = {|
   default_shipping?: ?{| [key: string]: mixed |},
   domain_url?: ?string,
   domain_verified?: boolean,
-  eligible_profile_tabs?: Array<
+  eligible_profile_tabs?: $ReadOnlyArray<
     ProfileTabCustom | ProfileTabDetailed | ProfileTabSummary
   >,
   email?: ?string,
@@ -1266,14 +1272,14 @@ export type UserCustom = {|
   login_state?: ?Enum_LoginState,
   merchant_id?: string,
   mfa_backup_codes?:
-    | Array<number>
-    | Array<string>
-    | Array<{| [key: string]: mixed |}>
-    | Array<boolean>
-    | Array<number>
-    | Array<Array<mixed>>,
+    | $ReadOnlyArray<number>
+    | $ReadOnlyArray<string>
+    | $ReadOnlyArray<{| [key: string]: mixed |}>
+    | $ReadOnlyArray<boolean>
+    | $ReadOnlyArray<number>
+    | $ReadOnlyArray<$ReadOnlyArray<mixed>>,
   most_recent_board_sort_order?: Enum_UserBoardFeedSortTypes,
-  nags?: Array<SubModel_Nags>,
+  nags?: $ReadOnlyArray<SubModel_Nags>,
   native_pin_count?: number,
   obfuscated_email?: string,
   personalize_from_offsite_browsing?: boolean,
@@ -1282,7 +1288,7 @@ export type UserCustom = {|
   phone_number_end?: ?string,
   phone_number_without_country?: ?string,
   pin_count?: number,
-  pin_thumbnail_urls?: Array<string>,
+  pin_thumbnail_urls?: $ReadOnlyArray<string>,
   pins_done_count?: number,
   ppa_merchant_id?: string,
   profile_cover_source?: ?string,
@@ -1322,9 +1328,9 @@ export type UserCustom = {|
   user_recommendation_reason?: ?SubModel_CreatorRecommendationReason,
   username?: string,
   usmstate?: string,
-  verified_domains?: Array<string>,
+  verified_domains?: $ReadOnlyArray<string>,
   verified_identity?: ?SubModel_VerifiedIdentity,
-  verified_user_websites?: Array<string>,
+  verified_user_websites?: $ReadOnlyArray<string>,
   video_pin_count?: number,
   video_upload_allowed?: boolean,
   video_views?: number,
@@ -1377,7 +1383,7 @@ export type UserDetailed = {|
   native_pin_count?: number,
   obfuscated_email?: string,
   pin_count?: number,
-  pin_thumbnail_urls?: Array<string>,
+  pin_thumbnail_urls?: $ReadOnlyArray<string>,
   pins_done_count?: number,
   profile_cover_source?: ?string,
   profile_discovered_public?: boolean,
@@ -1393,9 +1399,9 @@ export type UserDetailed = {|
   user_following_count?: number,
   user_recommendation_reason?: ?SubModel_CreatorRecommendationReason,
   username: string,
-  verified_domains?: Array<string>,
+  verified_domains?: $ReadOnlyArray<string>,
   verified_identity: ?SubModel_VerifiedIdentity,
-  verified_user_websites?: Array<string>,
+  verified_user_websites?: $ReadOnlyArray<string>,
   website_url?: ?string,
 |};
 export type UserSummary = {|
@@ -1412,7 +1418,7 @@ export type UserSummary = {|
   username: string,
 |};
 export type Wildcard_OneOfAny = {| [key: string]: mixed |};
-export type add_fields = Array<string>;
+export type add_fields = $ReadOnlyArray<string>;
 export type api_error_200 = {|
   code: number,
   message: "Something went wrong while trying to save this Pin. Please try again.",
@@ -1450,5 +1456,5 @@ export type api_error_96 = {|
   message: "Invalid board name.",
 |} & ApiErrorEnvelope;
 export type base_scheme = "http" | "https";
-export type fields = Array<string>;
+export type fields = $ReadOnlyArray<string>;
 export type render_style = "detailed" | "summary" | "all_fields";

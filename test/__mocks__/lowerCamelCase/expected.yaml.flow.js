@@ -25,11 +25,11 @@ export type Pet = {
   snakeCaseId?: string,
   category?: Category,
   name: string,
-  photoUrls: Array<string>,
-  tags?: Array<Tag>,
+  photoUrls: $ReadOnlyArray<string>,
+  tags?: $ReadOnlyArray<Tag>,
   status?: "available" | "pending" | "sold",
   objectType?: {| [key: string]: mixed |},
 };
-export type IGenericCollectionPet = { items?: Array<Pet> };
-export type IGenericCollectionString = { items?: Array<string> };
+export type IGenericCollectionPet = { items?: $ReadOnlyArray<Pet> };
+export type IGenericCollectionString = { items?: $ReadOnlyArray<string> };
 export type ApiResponse = { code?: number, type?: string, message?: string };

@@ -4,16 +4,16 @@ export type Cat = {
   camelCaseId?: string,
   xDashesId?: string,
   snakeCaseId?: string,
-  requiredSnakeCaseId: string
+  requiredSnakeCaseId: string,
 };
 export type Dog = {
   nestedProperty: {
     snakeCaseId?: string,
     requiredSnakeCaseId: string,
-    category?: Category
-  }
+    category?: Category,
+  },
 };
 export type Category = {
   snakeCaseValue?: number,
-  requiredSnakeCaseValue: number
+  requiredSnakeCaseValue: number,
 };

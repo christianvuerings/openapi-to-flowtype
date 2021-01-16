@@ -1,6 +1,11 @@
 /* eslint-env node */
 module.exports = {
-  extends: "eslint:recommended",
+  extends: [
+    "eslint:recommended",
+    "plugin:flowtype/recommended",
+    "prettier/flowtype",
+  ],
+  plugins: ["flowtype"],
   parser: "babel-eslint",
   parserOptions: {
     ecmaVersion: 6,
@@ -10,5 +15,8 @@ module.exports = {
     node: true,
     es6: true,
     jest: true,
+  },
+  rules: {
+    "flowtype/no-mutable-array": "error",
   },
 };
