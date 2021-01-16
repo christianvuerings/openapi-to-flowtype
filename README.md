@@ -12,6 +12,7 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 - 0.9.6: fix string escaping within properties
 - 0.9.6: fix string escaping within properties
 - 0.9.7: support keys starting with a numeric value + introduce prettier + improve tests
+- 0.9.8: use $ReadOnlyArray instead of Array
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 

@@ -1,6 +1,6 @@
 {
   "name": "@christianv/openapi-to-flowtype",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "description": "Command line tool for generating flow types definitions from OpenAPI 3.0 specification",
   "main": "./dist/index.js",
   "browserslist": "node 14",
