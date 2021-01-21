@@ -241,6 +241,8 @@ export default class Generator {
       return property.enum
         .map((e) => `'${e.replace(/'/g, "\\'")}'`)
         .join(" | ");
+    } else if (property.type === "integer" && "enum" in property) {
+      return property.enum.join(" | ");
     } else if (Array.isArray(property.type)) {
       return property.type.map((t) => typeMapping[t]).join(" | ");
     } else if (Object.keys(property).some((d) => discriminatorMap[d])) {

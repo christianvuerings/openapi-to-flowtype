@@ -426,7 +426,7 @@ export type Enum_CategoryDim =
   | "TRAVEL"
   | "WEDDINGS"
   | "WOMENS_FASHION";
-export type Enum_ClickThroughAction = number;
+export type Enum_ClickThroughAction = 0 | 1;
 export type Enum_CommunityRole =
   | "ADMIN"
   | "BANNED"
@@ -456,7 +456,7 @@ export type Enum_CreativeTypes =
   | "max_video"
   | "regular"
   | "video";
-export type Enum_DestinationUrlType = number;
+export type Enum_DestinationUrlType = 0 | 1 | 2 | 3 | 4;
 export type Enum_HomefeedBrowsingLevel =
   | "BROWSER_28D"
   | "BROWSER_7D"
@@ -467,8 +467,8 @@ export type Enum_HomefeedBrowsingLevel =
   | "LANDER_28D"
   | "LANDER_7D"
   | "OTHER";
-export type Enum_LoginState = number;
-export type Enum_MatchReason = number;
+export type Enum_LoginState = 1 | 2;
+export type Enum_MatchReason = 0 | 1 | 2 | 3;
 export type Enum_NoPromotableReason =
   | "App install pins may not be promoted."
   | "GIF pins may not be promoted."
@@ -518,12 +518,85 @@ export type Enum_PinMethods =
   | "unknown"
   | "uploaded"
   | "virtual_try_on_camera";
-export type Enum_PinQualityState = number;
+export type Enum_PinQualityState = 0 | 1 | 2 | 3 | 4;
 export type Enum_Privacy = "public" | "secret";
-export type Enum_ReactionTypeEnum = number;
-export type Enum_RecommendationComplaintReason = number;
-export type Enum_RelatedModule = number;
-export type Enum_TopInterest = number;
+export type Enum_ReactionTypeEnum =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13;
+export type Enum_RecommendationComplaintReason =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18;
+export type Enum_RelatedModule =
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 100;
+export type Enum_TopInterest =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19
+  | 20
+  | 21
+  | 22
+  | 23;
 export type Enum_UserBoardFeedSortTypes =
   | "ALPHABETICAL"
   | "CUSTOM"
@@ -531,8 +604,8 @@ export type Enum_UserBoardFeedSortTypes =
   | "LAST_PINNED_TO"
   | "NEWEST"
   | "OLDEST";
-export type Enum_VideoStatus = number;
-export type Enum_VirtualTryOnPinType = number;
+export type Enum_VideoStatus = 1 | 2 | 3 | 4 | 5 | 6;
+export type Enum_VirtualTryOnPinType = 0 | 1 | 2 | 3 | 4;
 export type FeedbackOptionsCustom = {| [key: string]: mixed |};
 export type FeedbackOptionsDetailed = {| [key: string]: mixed |};
 export type FeedbackOptionsSummary = {| [key: string]: mixed |};
@@ -1420,39 +1493,39 @@ export type UserSummary = {|
 export type Wildcard_OneOfAny = {| [key: string]: mixed |};
 export type add_fields = $ReadOnlyArray<string>;
 export type api_error_200 = {|
-  code: number,
+  code: 200,
   message: "Something went wrong while trying to save this Pin. Please try again.",
 |} & ApiErrorEnvelope;
 export type api_error_2034 = {|
-  code: number,
+  code: 2034,
   message: "Sorry! You can only have up to 500 sections on a board.",
 |} & ApiErrorEnvelope;
 export type api_error_2171 = {|
-  code: number,
+  code: 2171,
   message: "Please wait until your Pins are finished deleting.",
 |} & ApiErrorEnvelope;
 export type api_error_2172 = {|
-  code: number,
+  code: 2172,
   message: "Please wait until your Pins are finished moving.",
 |} & ApiErrorEnvelope;
 export type api_error_2173 = {|
-  code: number,
+  code: 2173,
   message: "Please wait until the previous board action finishes.",
 |} & ApiErrorEnvelope;
 export type api_error_2174 = {|
-  code: number,
+  code: 2174,
   message: "Sorry! We don't support performing this action on a board of this type.",
 |} & ApiErrorEnvelope;
 export type api_error_2611 = {|
-  code: number,
+  code: 2611,
   message: "Sorry! Something went wrong with your reaction.",
 |} & ApiErrorEnvelope;
 export type api_error_32 = {|
-  code: number,
+  code: 32,
   message: "Something went wrong while trying to follow this user. Please try again.",
 |} & ApiErrorEnvelope;
 export type api_error_96 = {|
-  code: number,
+  code: 96,
   message: "Invalid board name.",
 |} & ApiErrorEnvelope;
 export type base_scheme = "http" | "https";

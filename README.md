@@ -17,6 +17,7 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 - 0.9.10: fix destination parameter
 - 0.9.11: move prettier & other dependencies
 - 0.9.12: only move prettier over to dependencies
+- 0.9.13: support enum numerical literal types
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 
