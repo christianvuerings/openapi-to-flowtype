@@ -141,36 +141,65 @@ export default class Generator {
 
     if ("type" in definition && definition.type !== "object") {
       const response = this.typeFor(definition);
-      // console.log( { response } );
       return response;
     }
 
+    const hasAdditionalPropertiesObject =
+      definition.additionalProperties &&
+      definition.additionalProperties !== true &&
+      definition.type === "object";
+
     if (
-      !definition.properties ||
-      Object.keys(definition.properties).length === 0
+      (!definition.properties ||
+        Object.keys(definition.properties).length === 0) &&
+      !hasAdditionalPropertiesObject
     ) {
       return EMPTY_OBJECT;
     }
 
-    // TODO: change to ES6
-    return Object.assign.apply(
-      null,
-      // $FlowFixMe
-      Object.keys(definition.properties).reduce(
-        (properties: $ReadOnlyArray<Object>, propName: string) => {
-          const property = definition.properties[propName];
-          this.appendToLog("propertyName", propName);
-          this.appendToLog("property", property);
-          const arr = properties.concat({
-            [this.propertyKeyForDefinition(propName, definition)]: `${
-              isNullable(property) ? "?" : ""
-            }${this.typeFor(property)}`,
-          });
-          return arr;
-        },
-        [{}]
-      )
-    );
+    return {
+      //$FlowIssue Computing  object literal [1] may lead to an exponentially large number of cases
+      ...(definition.properties
+        ? Object.keys(definition.properties).reduce(
+            (properties: Object, propName: string) => {
+              const property = definition.properties[propName];
+              this.appendToLog("properties - propertyName", propName);
+              this.appendToLog("properties - property", property);
+              return {
+                ...properties,
+                ...{
+                  [this.propertyKeyForDefinition(propName, definition)]: `${
+                    isNullable(property) ? "?" : ""
+                  }${this.typeFor(property)}`,
+                },
+              };
+            },
+            {}
+          )
+        : {}),
+      ...(hasAdditionalPropertiesObject
+        ? Object.keys(definition.additionalProperties).reduce(
+            (properties: Object, propName: string) => {
+              const property = definition.additionalProperties[propName];
+              this.appendToLog("additionalProperties - propertyName", propName);
+              this.appendToLog("additionalProperties - property", property);
+
+              if (propName === "$ref") {
+                return {
+                  "[key: string]": this.definitionTypeName(
+                    definition.additionalProperties.$ref
+                  ),
+                };
+              }
+
+              return {
+                "[key: string]": this.typeFor(definition.additionalProperties),
+              };
+            },
+            {}
+          )
+        : {}),
+    };
   }
 
   propertiesTemplate(

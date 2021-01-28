@@ -1,6 +1,6 @@
 {
   "name": "@christianv/openapi-to-flowtype",
-  "version": "0.9.13",
+  "version": "0.9.14",
   "description": "Command line tool for generating flow types definitions from OpenAPI 3.0 specification",
   "main": "./dist/index.js",
   "browserslist": "node 14",
@@ -61,10 +61,8 @@
     "jest": "^26.6.3"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/**.js"
-    ],
-    "collectCoverage": true,
-    "globalSetup": "./jest.setup.js"
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.js"
+    ]
   }
 }
