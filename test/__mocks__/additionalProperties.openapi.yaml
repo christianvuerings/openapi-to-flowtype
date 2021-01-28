@@ -1,0 +1,114 @@
+info:
+  title: Pin API
+  version: 0.0.1
+openapi: 3.0.3
+paths:
+  /v3/boards/:
+    description: Create a board
+components:
+  schemas:
+    wildcards_OneOfAnyUntypedField:
+      description: Field is not Typed
+      nullable: true
+      oneOf:
+      - type: integer
+      - type: string
+      - additionalProperties: true
+        type: object
+      - type: boolean
+      - type: number
+      - items: {}
+        type: array
+    ContactRequestCustom:
+      additionalProperties: false
+      description: A model that represents a contact request for conversation group
+        board.
+      properties:
+        board:
+          $ref: '#/components/schemas/wildcards_OneOfAnyUntypedField'
+        conversation:
+          $ref: '#/components/schemas/wildcards_OneOfAnyUntypedField'
+      title: ContactRequest with custom keys
+      type: object
+    ContactRequestDetailed:
+      additionalProperties: false
+      description: A model that represents a contact request for conversation group
+        board.
+      properties:
+        board:
+          $ref: '#/components/schemas/wildcards_OneOfAnyUntypedField'
+        conversation:
+          $ref: '#/components/schemas/wildcards_OneOfAnyUntypedField'
+      title: ContactRequest with detailed keys
+      type: object
+    ContactRequestSummary:
+      additionalProperties: false
+      description: A model that represents a contact request for conversation group
+        board.
+      properties:
+        recipient:
+          $ref: '#/components/schemas/wildcards_OneOfAnyUntypedField'
+        sender:
+          $ref: '#/components/schemas/wildcards_OneOfAnyUntypedField'
+      title: ContactRequest with summary keys
+      type: object
+    SubModel_ImageDetails:
+      additionalProperties: false
+      properties:
+        domain_color:
+          type: string
+        height:
+          type: integer
+        type:
+          type: string
+        url:
+          type: string
+        width:
+          type: integer
+      type: object
+    UserCustom:
+      additionalProperties: false
+      description: Pinterest User.
+      properties:
+        about:
+          nullable: false
+          type: string
+        recent_pin_images:
+          additionalProperties:
+            $ref: '#/components/schemas/SubModel_ImageDetails'
+          nullable: true
+          type: object
+        through_properties:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+    BoardCustom:
+      additionalProperties: false
+      description: Represents an instance of a Board.
+      properties:
+        viewer_contact_request_one_of:
+          additionalProperties:
+            oneOf:
+            - $ref: '#/components/schemas/ContactRequestCustom'
+            - $ref: '#/components/schemas/ContactRequestDetailed'
+            - $ref: '#/components/schemas/ContactRequestSummary'
+          nullable: true
+          type: object
+        viewer_contact_request_all_of:
+          additionalProperties:
+            allOf:
+            - $ref: '#/components/schemas/ContactRequestCustom'
+            - $ref: '#/components/schemas/ContactRequestDetailed'
+            - $ref: '#/components/schemas/ContactRequestSummary'
+          nullable: true
+          type: object
+        viewer_contact_request_any_of:
+          additionalProperties:
+            anyOf:
+            - $ref: '#/components/schemas/ContactRequestCustom'
+            - $ref: '#/components/schemas/ContactRequestDetailed'
+            - $ref: '#/components/schemas/ContactRequestSummary'
+          nullable: true
+          type: object
