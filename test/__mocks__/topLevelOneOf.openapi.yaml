@@ -1,0 +1,40 @@
+components:
+  schemas:
+    Partner:
+      oneOf:
+      - $ref: '#/components/schemas/PartnerCustom'
+      - $ref: '#/components/schemas/PartnerDetailed'
+    PartnerMany:
+      oneOf:
+      - items:
+          $ref: '#/components/schemas/PartnerCustom'
+        type: array
+      - items:
+          $ref: '#/components/schemas/PartnerDetailed'
+        type: array
+    PartnerCustom:
+      additionalProperties: false
+      properties:
+        advertising_intent:
+          nullable: true
+          type: integer
+    PartnerDetailed:
+      additionalProperties: false
+      properties:
+        biz_ownership_email:
+          nullable: true
+          type: string
+    wildcards_OneOfAny:
+      oneOf:
+      - type: integer
+      - type: string
+      - additionalProperties: true
+        type: object
+      - type: boolean
+      - type: number
+      - items: {}
+        type: array
+info:
+  title: Pin API
+  version: 0.0.1
+openapi: 3.0.3
