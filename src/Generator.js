@@ -24,6 +24,9 @@ const discriminatorMap = {
   anyOf: "|",
 };
 
+const isPlainObject = (obj) =>
+  Object.prototype.toString.call(obj) === "[object Object]";
+
 const stripBrackets = (name: string) => name.replace(/[[\]']+/g, "");
 
 const isRequired = (propertyName: string, definition: Object): boolean => {
@@ -36,6 +39,23 @@ const isNullable = (property: Object): boolean => property.nullable;
 
 const withExact = (property: string): string =>
   property.replace(/\{[^|}.]/g, "{|").replace(/[^|{.]\}/g, "|}");
+
+type Descriminators = $Keys<typeof discriminatorMap>;
+class DescriminatorItems {
+  items: $ReadOnlyArray<Object>;
+  type: Descriminators;
+
+  constructor({
+    items,
+    type,
+  }: {
+    items: $ReadOnlyArray<Object>,
+    type: Descriminators,
+  }) {
+    this.items = items;
+    this.type = type;
+  }
+}
 
 export default class Generator {
   exact: boolean = false;
@@ -132,7 +152,20 @@ export default class Generator {
 
   propertiesList(definition: any) {
     if ("allOf" in definition) {
-      return definition.allOf.map(this.propertiesList, this);
+      return new DescriminatorItems({
+        items: definition.allOf.map(this.propertiesList, this),
+        type: "allOf",
+      });
+    }
+
+    if (
+      "oneOf" in definition &&
+      definition.oneOf.filter((item) => item.additionalProperties).length === 0
+    ) {
+      return new DescriminatorItems({
+        items: definition.oneOf.map(this.propertiesList, this),
+        type: "oneOf",
+      });
     }
 
     if (definition.$ref) {
@@ -209,20 +242,40 @@ export default class Generator {
       return withExact(properties);
     }
 
-    if (Array.isArray(properties)) {
-      return properties
+    if (properties instanceof DescriminatorItems) {
+      const symbol = discriminatorMap[properties.type];
+      return properties.items
         .map((property) => {
           let p = property.$ref
-            ? `& ${property.$ref}`
-            : JSON.stringify(property);
+            ? `${symbol} ${property.$ref}`
+            : `${symbol} ${
+                isPlainObject(property) ? JSON.stringify(property) : property
+              }`;
           if (!property.$ref && this.exact) {
             p = withExact(p);
           }
           return p;
         })
-        .sort((a) => (a[0] === "&" ? 1 : -1))
+        .sort((a) => (a[0] === symbol ? 1 : -1))
         .join(" ");
     }
+
+    // if (Array.isArray(properties)) {
+    //   return properties
+    //     .map((property) => {
+    //       let p = property.$ref
+    //         ? `& ${property.$ref}`
+    //         : `& ${
+    //             isPlainObject(property) ? JSON.stringify(property) : property
+    //           }`;
+    //       if (!property.$ref && this.exact) {
+    //         p = withExact(p);
+    //       }
+    //       return p;
+    //     })
+    //     .sort((a) => (a[0] === "&" ? 1 : -1))
+    //     .join(" ");
+    // }
 
     if (this.exact) {
       return withExact(JSON.stringify(properties));
