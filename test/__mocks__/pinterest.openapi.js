@@ -197,7 +197,7 @@ export type AdTargetingAttribution = {|
   is_shopping_retargeting_matched?: boolean,
 |};
 export type AdditionalImages = {|
-  canonical_images?: {| [key: string]: Thumbnails |},
+  canonical_images?: {| [key: string]: ?Thumbnails |},
   image_signature?: string,
 |};
 export type AddressMetadata = {|
@@ -219,7 +219,7 @@ export type AdvisoryAction = {|
 |};
 export type AdvisoryActionMany = $ReadOnlyArray<AdvisoryAction>;
 export type AdvisoryButton = {|
-  aux_data?: {| [key: string]: wildcards_OneOfAny |},
+  aux_data?: {| [key: string]: ?wildcards_OneOfAny |},
   id?: string,
   link?: string,
   text?: string,
@@ -306,7 +306,7 @@ export type AggregatedStats = {| done?: number, saves?: number |};
 export type AltLink = {| domain?: string, url?: string |};
 export type AnnotationsWithLinks = {| name?: ?string, url?: ?string |};
 export type AnonymousUser = {|
-  gatekeeper_experiments?: {| [key: string]: GatekeeperExperiment |},
+  gatekeeper_experiments?: {| [key: string]: ?GatekeeperExperiment |},
   id?: string,
   ip_country?: ?string,
   ip_region?: ?string,
@@ -405,7 +405,7 @@ export type ArticleThumbnail = {|
   width?: ?number,
 |};
 export type ArticleTitle = {|
-  args?: $ReadOnlyArray<{| [key: string]: string |}>,
+  args?: $ReadOnlyArray<{| [key: string]: ?string |}>,
   format?: ?string,
   text?: ?string,
 |};
@@ -482,7 +482,7 @@ export type Board = {|
   collaborator_requests_enabled?: boolean,
   conversation?: ?string,
   cover?: ?Pin,
-  cover_images?: ?{| [key: string]: CoverImageDetails |},
+  cover_images?: ?{| [key: string]: ?CoverImageDetails |},
   cover_pin?: ?CoverPin,
   created_at?: ?string,
   debug?: ?string,
@@ -503,8 +503,8 @@ export type Board = {|
   image_cover_hd_url?: ?string,
   image_cover_url?: ?string,
   image_thumbnail_url?: string,
-  image_thumbnail_urls?: ?{| [key: string]: string |},
-  images?: ?{| [key: string]: $ReadOnlyArray<ImageDetails> |},
+  image_thumbnail_urls?: ?{| [key: string]: ?string |},
+  images?: ?{| [key: string]: ?$ReadOnlyArray<ImageDetails> |},
   interests?: ?InterestMany,
   is_collaborative?: boolean,
   is_eligible_for_homefeed_tabs?: ?boolean,
@@ -644,7 +644,7 @@ export type BoardMany = $ReadOnlyArray<Board>;
 export type BoardNote = {|
   board?: ?Board,
   checklist_placeholder?: string,
-  cover_images?: $ReadOnlyArray<{| [key: string]: Thumbnails |}>,
+  cover_images?: $ReadOnlyArray<{| [key: string]: ?Thumbnails |}>,
   created_at?: string,
   creator?: ?User,
   id?: string,
@@ -672,9 +672,9 @@ export type BoardSection = {|
 |};
 export type BoardSectionMany = $ReadOnlyArray<BoardSection>;
 export type BoardSectionNameRecommendation = {|
-  cover_images?: $ReadOnlyArray<{| [key: string]: Thumbnails |}>,
+  cover_images?: $ReadOnlyArray<{| [key: string]: ?Thumbnails |}>,
   id?: string,
-  images?: {| [key: string]: Thumbnails |},
+  images?: {| [key: string]: ?Thumbnails |},
   interest_key?: ?string,
   name?: string,
   pins?: PinMany,
@@ -960,14 +960,14 @@ export type CategorizedIngredientsMetadata = {|
 export type CategorizedIngredientsMetadataMany = $ReadOnlyArray<CategorizedIngredientsMetadata>;
 export type CategoryMap = {|
   category_type?: string,
-  images?: {| [key: string]: Thumbnails |},
+  images?: {| [key: string]: ?Thumbnails |},
   key?: string,
   name?: string,
 |};
 export type CinematicData = {|
   duration?: number,
   height?: number,
-  images?: {| [key: string]: ImageDetails |},
+  images?: {| [key: string]: ?ImageDetails |},
   signature?: string,
   simple_cinematic_data?: boolean,
   src?: string,
@@ -1017,7 +1017,7 @@ export type CollaboratorInviteMany = $ReadOnlyArray<CollaboratorInvite>;
 export type CollagePin = {|
   id?: string,
   image_signature?: string,
-  images?: ?{| [key: string]: Thumbnails |},
+  images?: ?{| [key: string]: ?Thumbnails |},
   layout_id?: CollagePinLayout,
   link?: string,
   slot_data?: CollagePinSlotDataMany,
@@ -1029,7 +1029,7 @@ export type CollagePinSlotData = {|
   collage_pin_id?: string,
   height_percent?: string,
   image_signature?: string,
-  images?: ?{| [key: string]: Thumbnails |},
+  images?: ?{| [key: string]: ?Thumbnails |},
   link?: string,
   slot_pin?: ?Pin,
   slot_pin_id?: string,
@@ -1048,7 +1048,7 @@ export type CollectionPin = {|
 |};
 export type CollectionPinItem = {|
   image_signature?: string,
-  images?: {| [key: string]: Thumbnails |},
+  images?: {| [key: string]: ?Thumbnails |},
   pin?: ?Pin,
   pin_id?: string,
   rich_metadata?: ?RichPinDataView,
@@ -1068,7 +1068,7 @@ export type Comment = {|
 export type CommentMany = $ReadOnlyArray<Comment>;
 export type Community = {|
   cover_image_signature?: string,
-  cover_images?: {| [key: string]: string |},
+  cover_images?: {| [key: string]: ?string |},
   created_at?: string,
   created_by_user?: ?User,
   description?: string,
@@ -1183,8 +1183,8 @@ export type Conversation = {|
   id?: string,
   last_message?: ?ConversationMessage,
   name?: ?string,
-  read_times?: ?{| [key: string]: string |},
-  read_times_ms?: {| [key: string]: number |},
+  read_times?: ?{| [key: string]: ?string |},
+  read_times_ms?: {| [key: string]: ?number |},
   snooze_time?: ?number,
   type?: "conversation",
   unread?: number,
@@ -1379,7 +1379,7 @@ export type CreatorClass = {|
   description?: ?string,
   details?: ?string,
   duration_minutes?: number,
-  hero_images?: ?{| [key: string]: Thumbnails |},
+  hero_images?: ?{| [key: string]: ?Thumbnails |},
   hero_video?: ?Video,
   id?: string,
   language?: string,
@@ -1849,10 +1849,10 @@ export type EnumType =
   | 3597;
 export type Experience = {|
   cacheable_resources?: $ReadOnlyArray<string>,
-  display_data?: {| [key: string]: string |},
+  display_data?: {| [key: string]: ?string |},
   experience_id?: number,
   id?: string,
-  metadata?: {| [key: string]: string |},
+  metadata?: {| [key: string]: ?string |},
   placement_id?: number,
   triggerable_placed_exps?: $ReadOnlyArray<string>,
   type?: ExperienceType,
@@ -1891,7 +1891,7 @@ export type ExploreArticle = {|
   aux_fields?: ?ArticleAuxFields,
   badge_type?: ?BadgeType,
   content_type?: ContentType,
-  cover_images?: $ReadOnlyArray<{| [key: string]: ArticleThumbnail |}>,
+  cover_images?: $ReadOnlyArray<{| [key: string]: ?ArticleThumbnail |}>,
   cover_pin?: ?string,
   creators?: UserMany,
   curator?: ?User,
@@ -2198,7 +2198,7 @@ export type FeedProfile = {|
   host?: ?string,
   id?: string,
   last_successful_ingestion?: ?{|
-    [key: string]: number | string | {| [key: string]: number |},
+    [key: string]: ?number | string | {| [key: string]: ?number |},
   |},
   locale?: ?string,
   location_config?: ?FeedLocationConfig,
@@ -2255,7 +2255,7 @@ export type FormattedStringWithObjectLinks = {|
 |};
 export type FormattedStringWithObjectLinksMany = $ReadOnlyArray<FormattedStringWithObjectLinks>;
 export type GalleryItem = {|
-  canonical_images?: ?{| [key: string]: Thumbnails |},
+  canonical_images?: ?{| [key: string]: ?Thumbnails |},
   id?: string,
   image_signature?: string,
   media_type?: "image",
@@ -2319,7 +2319,7 @@ export type ImageDetails = {|
 |};
 export type ImageDimensions = {| height?: number, width?: number |};
 export type ImageMetadata = {|
-  canonical_images?: ?{| [key: string]: Thumbnails |},
+  canonical_images?: ?{| [key: string]: ?Thumbnails |},
   image_signature?: ?string,
   media_type?: "image",
   type?: "galleryitem",
@@ -2401,7 +2401,7 @@ export type InstantContentHeadingBlock = {|
 export type InstantContentHeadingBlockMany = $ReadOnlyArray<InstantContentHeadingBlock>;
 export type InstantContentImageBlock = {|
   action?: InstantContentActionModels,
-  images?: ?{| [key: string]: Thumbnails |},
+  images?: ?{| [key: string]: ?Thumbnails |},
   style?: InstantContentImageStyle,
   type?: "instant_content_image",
 |};
@@ -2550,7 +2550,7 @@ export type Interest = {|
   curated_description?: ?string,
   curated_on_page_title?: ?string,
   curated_title?: ?string,
-  cycling_images?: ?$ReadOnlyArray<{| [key: string]: Thumbnails |}>,
+  cycling_images?: ?$ReadOnlyArray<{| [key: string]: ?Thumbnails |}>,
   description?: ?string,
   enum_type?: EnumType,
   explore_section?: ?string,
@@ -2565,7 +2565,7 @@ export type Interest = {|
   image_signature?: string,
   image_size?: InterestSizeType,
   image_source?: InterestImageSource,
-  images?: ?{| [key: string]: ImageDetails |},
+  images?: ?{| [key: string]: ?ImageDetails |},
   interest_stats?: ?SeoTopicsPageStats,
   is_followed?: boolean,
   is_ideas_hub?: ?boolean,
@@ -2587,7 +2587,7 @@ export type Interest = {|
   seo_breadcrumbs?: ?$ReadOnlyArray<SeoBreadcrumbs>,
   seo_related_interests?: ?$ReadOnlyArray<SeoBreadcrumbs>,
   topic_breadcrumbs?: $ReadOnlyArray<Breadcrumbs>,
-  translation_urls?: {| [key: string]: string |},
+  translation_urls?: {| [key: string]: ?string |},
   trending_searches?: ?$ReadOnlyArray<string>,
   type?: "interest",
   url_name?: string,
@@ -2731,7 +2731,7 @@ export type MakeCardTutorialInstructionMetadata = {|
   description?: string,
   headline?: ?string,
   id?: string,
-  images?: ?{| [key: string]: Thumbnails |},
+  images?: ?{| [key: string]: ?Thumbnails |},
   type?: "makecardtutorialinstructionmetadata",
 |};
 export type MakeCardTutorialInstructionMetadataMany = $ReadOnlyArray<MakeCardTutorialInstructionMetadata>;
@@ -2741,7 +2741,7 @@ export type MakeCardTutorialMetadata = {|
   description?: string,
   from_aggregated_data?: boolean,
   id?: string,
-  images?: ?{| [key: string]: Thumbnails |},
+  images?: ?{| [key: string]: ?Thumbnails |},
   instructions?: MakeCardTutorialInstructionMetadataMany,
   name?: string,
   partner?: ?User,
@@ -2761,7 +2761,7 @@ export type MakeCardTutorialSupplyMetadataMany = $ReadOnlyArray<MakeCardTutorial
 export type MatchReason = 0 | 1 | 2 | 3;
 export type MediaUploadSpace = {|
   upload_id?: string,
-  upload_parameters?: {| [key: string]: string |},
+  upload_parameters?: {| [key: string]: ?string |},
   upload_url?: string,
 |};
 export type Merchant = {|
@@ -2779,7 +2779,7 @@ export type Merchant = {|
   is_active?: boolean,
   is_product_pin_active?: boolean,
   logo_url?: ?string,
-  merchant_stats?: {| [key: string]: string |},
+  merchant_stats?: {| [key: string]: ?string |},
   merchant_url?: string,
   partner_type?: ?partnertype,
   partner_user_id?: string,
@@ -2798,7 +2798,9 @@ export type MerchantMetadata = {|
   domain_whitelist?: boolean,
   feed_ingested_at_least_once?: boolean,
   last_successful_ingestion?: ?WorkflowStats,
-  preference_map?: {| [key: string]: boolean | {| [key: string]: boolean |} |},
+  preference_map?: {|
+    [key: string]: ?boolean | {| [key: string]: ?boolean |},
+  |},
 |};
 export type MfaBackupCodes = {| code?: string, used?: boolean |};
 export type MinimalModel = {| id?: string |};
@@ -3012,7 +3014,7 @@ export type Pin = {|
     | {| bookmark?: ?string, data: CommentMany, uri: string |},
   comments_disabled?: boolean,
   complementary_pins?: ?PinMany,
-  content_sensitivity?: {| [key: string]: boolean |},
+  content_sensitivity?: {| [key: string]: ?boolean |},
   created_at?: ?string,
   creative_types?: ?$ReadOnlyArray<CreativeTypes>,
   creator_analytics?: ?PinAnalyticsStats,
@@ -3025,7 +3027,7 @@ export type Pin = {|
   deb_inclusive_product?: ?$ReadOnlyArray<SignalDecisionDict>,
   deb_shopping?: ?$ReadOnlyArray<SignalDecisionDict>,
   deb_trust_and_safety?: ?$ReadOnlyArray<SignalDecisionDict>,
-  debug?: ?string | {| [key: string]: string |},
+  debug?: ?string | {| [key: string]: ?string |},
   debug_info_html?: ?string,
   description?: ?string,
   description_html?: string,
@@ -3070,7 +3072,7 @@ export type Pin = {|
   image_square_size_pixels?: ?ImageDimensions,
   image_square_size_points?: ?ImageDimensions,
   image_square_url?: ?string,
-  images?: {| [key: string]: ImageDetails |},
+  images?: {| [key: string]: ?ImageDetails |},
   influencer_pin_stats?: ?PinAnalyticsStats,
   insertion_id?: ?string,
   is_best_tried_it?: ?boolean,
@@ -3119,7 +3121,7 @@ export type Pin = {|
   link?: ?string,
   link_domain?: ?Domain,
   link_user_website?: ?UserWebsite,
-  manual_interest_tags?: ?{| [key: string]: string |},
+  manual_interest_tags?: ?{| [key: string]: ?string |},
   matched_user_interest?: ?string,
   meta_title_description?: TitleAndDescription,
   method?: PinMethods,
@@ -3171,7 +3173,7 @@ export type Pin = {|
   rich_recipe_top_ingredients?: $ReadOnlyArray<TopIngredient>,
   rich_summary?: ?RichPinGridData,
   root_pin_id?: string,
-  scene_data?: {| [key: string]: string |},
+  scene_data?: {| [key: string]: ?string |},
   search_query?: ?string,
   section?: ?BoardSection,
   seo_url?: string,
@@ -3208,7 +3210,7 @@ export type Pin = {|
   virtual_try_on_data?: VirtualTryOnData,
   virtual_try_on_type?: VirtualTryOnPinType,
   visual_objects?: $ReadOnlyArray<StelaVisualObject>,
-  visual_search_attrs?: ?{| [key: string]: string |},
+  visual_search_attrs?: ?{| [key: string]: ?string |},
 |};
 export type Pin360Metadata = {| stereo?: string, type?: string |};
 export type PinAccess = "delete" | "tag" | "write";
@@ -3245,7 +3247,7 @@ export type PinCarouselSlot = {|
   domain?: string,
   id?: string,
   image_signature?: string,
-  images?: {| [key: string]: Thumbnails |},
+  images?: {| [key: string]: ?Thumbnails |},
   ios_deep_link?: ?string,
   link?: ?string,
   rich_metadata?: ?RichPinDataView,
@@ -3255,7 +3257,7 @@ export type PinCarouselSlot = {|
 |};
 export type PinCarouselSlotMany = $ReadOnlyArray<PinCarouselSlot>;
 export type PinJoin = {|
-  annotations_with_links?: {| [key: string]: AnnotationsWithLinks |},
+  annotations_with_links?: {| [key: string]: ?AnnotationsWithLinks |},
   breadcrumbs?: ?string,
   canonical_pin?: ?Pin,
   i18n_visual_descriptions?: $ReadOnlyArray<string>,
@@ -3350,7 +3352,7 @@ export type PinTag = {|
 export type PinTagChip = {|
   id?: string,
   image_signature?: string,
-  images?: ?{| [key: string]: Thumbnails |},
+  images?: ?{| [key: string]: ?Thumbnails |},
   link?: ?string,
   price_currency?: ?string,
   price_value?: ?number,
@@ -3371,7 +3373,7 @@ export type Place = {|
   country?: ?string,
   extra_street?: ?string,
   from_pin_join?: boolean,
-  hero_images?: ?{| [key: string]: Thumbnails |},
+  hero_images?: ?{| [key: string]: ?Thumbnails |},
   hours?: $ReadOnlyArray<PlaceHours>,
   hours_texts?: HoursTextMany,
   id?: string,
@@ -3394,9 +3396,9 @@ export type Place = {|
   source_url?: ?string,
   street?: ?string,
   type?: "place",
-  upsell_images?: ?{| [key: string]: Thumbnails |},
+  upsell_images?: ?{| [key: string]: ?Thumbnails |},
   url?: ?string,
-  user_education_images?: ?{| [key: string]: Thumbnails |},
+  user_education_images?: ?{| [key: string]: ?Thumbnails |},
 |};
 export type PlaceCategory = {|
   icon_url?: ?string,
@@ -3413,7 +3415,7 @@ export type PlaceHours = {|
 export type PlaceHoursOpen = {| end?: string, start?: string |};
 export type PlaceImage = {|
   id?: string,
-  thumbnails?: {| [key: string]: ImageDetails |},
+  thumbnails?: {| [key: string]: ?ImageDetails |},
   type?: "placeimage",
 |};
 export type PlaceImageMany = $ReadOnlyArray<PlaceImage>;
@@ -3482,7 +3484,7 @@ export type ProductMetadataV2 = {|
   layout?: Layout,
   link?: string,
   max_price?: ?string,
-  merchant_badge?: {| [key: string]: string |},
+  merchant_badge?: {| [key: string]: ?string |},
   merchant_id?: string,
   merchant_item_group_id?: string,
   merchant_name?: string,
@@ -3492,7 +3494,7 @@ export type ProductMetadataV2 = {|
   product_thumbnails?: ImageMetadataMany,
   refund_info?: string,
   return_policy_link?: ?string,
-  rich_description?: {| [key: string]: string |},
+  rich_description?: {| [key: string]: ?string |},
   sale_price?: ?string,
   short_description?: ?string,
   title?: string,
@@ -3504,7 +3506,7 @@ export type ProductPinType = 1 | 2 | 3;
 export type ProductVariant = {|
   additional_images?: ?$ReadOnlyArray<AdditionalImages>,
   checkout_token?: ?string,
-  dimensions?: {| [key: string]: string |},
+  dimensions?: {| [key: string]: ?string |},
   is_eligible_for_checkout?: boolean,
   item_id?: string,
   item_set_id?: string,
@@ -3528,13 +3530,13 @@ export type ProductVariantSet = {|
 export type ProductVariantSetMany = $ReadOnlyArray<ProductVariantSet>;
 export type ProfileCoverSource = {|
   id?: string,
-  image_tracking_ids?: {| [key: string]: string |},
-  images?: ?{| [key: string]: ImageDetails |},
+  image_tracking_ids?: {| [key: string]: ?string |},
+  images?: ?{| [key: string]: ?ImageDetails |},
   source?: string,
   source_id?: ?string,
   type?: "profilecoversource",
   video?: ?Video,
-  video_tracking_ids?: {| [key: string]: string |},
+  video_tracking_ids?: {| [key: string]: ?string |},
 |};
 export type ProfileCoverSourceMany = $ReadOnlyArray<ProfileCoverSource>;
 export type ProfileTab = {|
@@ -3626,7 +3628,7 @@ export type RecommendationReason = {|
   reason_id_str?: ?string,
   reason_image?: string,
   through_interest?: string,
-  through_properties?: {| [key: string]: $ReadOnlyArray<string> |},
+  through_properties?: {| [key: string]: ?$ReadOnlyArray<string> |},
 |};
 export type RelatedModule =
   | 1
@@ -3668,12 +3670,12 @@ export type RichPinDataView = {|
   aggregated_app_link?: AggregatedAppLinkMetadata,
   amp_url?: ?string,
   amp_valid?: boolean,
-  apple_touch_icon_images?: ?{| [key: string]: string |},
+  apple_touch_icon_images?: ?{| [key: string]: ?string |},
   apple_touch_icon_link?: ?string,
   article?: ArticleMetadata,
   canonical_url?: ?string,
   description?: ?string,
-  favicon_images?: {| [key: string]: string |},
+  favicon_images?: {| [key: string]: ?string |},
   favicon_link?: string,
   has_price_drop?: boolean,
   id?: string,
@@ -3701,12 +3703,12 @@ export type RichPinDataViewMany = $ReadOnlyArray<RichPinDataView>;
 export type RichPinGridData = {|
   actions?: $ReadOnlyArray<RichActions>,
   aggregate_rating?: AggregateRatingMetadata,
-  apple_touch_icon_images?: ?{| [key: string]: string |},
+  apple_touch_icon_images?: ?{| [key: string]: ?string |},
   apple_touch_icon_link?: ?string,
   display_cook_time?: number,
   display_description?: string,
   display_name?: string,
-  favicon_images?: {| [key: string]: string |},
+  favicon_images?: {| [key: string]: ?string |},
   favicon_link?: string,
   has_instant_content?: boolean,
   id?: string,
@@ -3755,7 +3757,7 @@ export type ScheduledPin = {|
   created_at?: string,
   description?: string,
   id?: string,
-  image?: ?{| [key: string]: Thumbnails |},
+  image?: ?{| [key: string]: ?Thumbnails |},
   image_signature?: string,
   link?: ?string,
   scheduled_ts?: number,
@@ -3802,7 +3804,7 @@ export type SensitivityMany = $ReadOnlyArray<Sensitivity>;
 export type SensitivityScreen = {| reason?: ?string, show_warning?: boolean |};
 export type SensitivityScreenMany = $ReadOnlyArray<SensitivityScreen>;
 export type SeoBreadcrumbs = {|
-  image?: {| [key: string]: Thumbnails |},
+  image?: {| [key: string]: ?Thumbnails |},
   name?: string,
   url?: string,
 |};
@@ -3861,14 +3863,14 @@ export type Story = {|
   closeup_id?: ?string,
   container_type?: ?StoryContainerTypeIntEnum | StoryContainerTypeStrEnum,
   content_ids?: $ReadOnlyArray<string>,
-  copy?: {| [key: string]: string |},
-  custom_properties?: {| [key: string]: wildcards_OneOfAny |},
+  copy?: {| [key: string]: ?string |},
+  custom_properties?: {| [key: string]: ?wildcards_OneOfAny |},
   display_options?: ?StoryDisplayOptions,
-  dynamic_insertion_options?: {| [key: string]: string |},
+  dynamic_insertion_options?: {| [key: string]: ?string |},
   experience?: ?Experience,
-  experience_extra_context?: {| [key: string]: string |},
+  experience_extra_context?: {| [key: string]: ?string |},
   id?: string,
-  mapped_display_options?: {| [key: string]: StoryDisplayOptions |},
+  mapped_display_options?: {| [key: string]: ?StoryDisplayOptions |},
   objects?: ?$ReadOnlyArray<
     | Pin
     | Board
@@ -3878,8 +3880,8 @@ export type Story = {|
     | BoardSectionNameRecommendation
   >,
   referring_source?: ?string,
-  related_interests?: {| [key: string]: string |},
-  relationships?: {| [key: string]: string |},
+  related_interests?: {| [key: string]: ?string |},
+  relationships?: {| [key: string]: ?string |},
   selected_interests?: $ReadOnlyArray<string>,
   slot?: ?number,
   story_type?: ?string,
@@ -4296,7 +4298,7 @@ export type StoryPinData = {|
 export type StoryPinDataMany = $ReadOnlyArray<StoryPinData>;
 export type StoryPinImage = {|
   dominant_color?: string,
-  images?: {| [key: string]: Thumbnails |},
+  images?: {| [key: string]: ?Thumbnails |},
 |};
 export type StoryPinImageBlock = {|
   block_style?: BlockStyle,
@@ -4498,7 +4500,7 @@ export type StoryShoppingGridDisplay = {|
 |};
 export type StoryShoppingGridDisplayMany = $ReadOnlyArray<StoryShoppingGridDisplay>;
 export type StoryText = {|
-  args?: $ReadOnlyArray<{| [key: string]: string |}>,
+  args?: $ReadOnlyArray<{| [key: string]: ?string |}>,
   format?: ?string,
   text?: ?string,
 |};
@@ -4672,7 +4674,7 @@ export type User = {|
   can_upload_cover?: boolean,
   canonical_merchant_domain?: ?string,
   ccpa_opted_out?: boolean,
-  commerce_module_data?: {| [key: string]: string |},
+  commerce_module_data?: {| [key: string]: ?string |},
   community_display_name?: string,
   community_role?: ?CommunityRoleEnum,
   community_roles?: $ReadOnlyArray<CommunityRoleEnum>,
@@ -4693,7 +4695,7 @@ export type User = {|
   country?: ?string,
   created_at?: string,
   custom_gender?: ?string,
-  debug?: ?string | {| [key: string]: wildcards_OneOfAny |},
+  debug?: ?string | {| [key: string]: ?wildcards_OneOfAny |},
   domain_url?: ?string,
   domain_verified?: boolean,
   dominant_color_css?: ?string,
@@ -4703,7 +4705,7 @@ export type User = {|
   eligible_profile_tabs?: ProfileTabMany,
   email?: ?string,
   exclude_from_search?: boolean,
-  experiments?: {| [key: string]: GatekeeperExperiment |},
+  experiments?: {| [key: string]: ?GatekeeperExperiment |},
   explicit_board_following_count?: number,
   explicit_user_following_count?: number,
   explicitly_followed_by_me?: boolean,
@@ -4717,7 +4719,7 @@ export type User = {|
   follower_count?: number,
   following_count?: number,
   full_name?: string,
-  gatekeeper_experiments?: {| [key: string]: GatekeeperExperiment |},
+  gatekeeper_experiments?: {| [key: string]: ?GatekeeperExperiment |},
   gender?: string,
   gplus_url?: ?string,
   group_board_count?: number,
@@ -4789,7 +4791,7 @@ export type User = {|
   pin_thumbnail_urls?: $ReadOnlyArray<string>,
   pins?: ?PinMany,
   pins_done_count?: number,
-  popular_product_images?: ?{| [key: string]: $ReadOnlyArray<ImageDetails> |},
+  popular_product_images?: ?{| [key: string]: ?$ReadOnlyArray<ImageDetails> |},
   ppa_merchant_id?: string,
   private_pin_count?: number,
   profile_cover?: ?ProfileCoverSource,
@@ -4800,8 +4802,8 @@ export type User = {|
   profile_views?: ?number,
   pronouns?: ?$ReadOnlyArray<string>,
   push_package_user_id?: string,
-  recent_pin_images?: ?{| [key: string]: $ReadOnlyArray<ImageDetails> |},
-  recent_story_pin_images?: ?{| [key: string]: $ReadOnlyArray<string> |},
+  recent_pin_images?: ?{| [key: string]: ?$ReadOnlyArray<ImageDetails> |},
+  recent_story_pin_images?: ?{| [key: string]: ?$ReadOnlyArray<string> |},
   recommendation_reason?: ?string,
   repins_from?: ?UserMany,
   requires_extra_protections?: boolean,
@@ -4826,10 +4828,10 @@ export type User = {|
   subscribed_to_notifications?: boolean,
   tag?: ?string,
   third_party_ad_unit_id?: string,
-  third_party_ads_config?: {| [key: string]: string |},
+  third_party_ads_config?: {| [key: string]: ?string |},
   third_party_app_id?: string,
   third_party_marketing_tracking_enabled?: boolean,
-  triggerable_experiments?: {| [key: string]: string |},
+  triggerable_experiments?: {| [key: string]: ?string |},
   twitter_publish_enabled?: boolean,
   twitter_url?: ?string,
   type?: "user",
@@ -4869,7 +4871,9 @@ export type UserDidItData = {|
   highlighted_by_pin_owner?: boolean,
   id?: string,
   image_signatures?: $ReadOnlyArray<string>,
-  images?: $ReadOnlyArray<{| [key: string]: {| [key: string]: Thumbnails |} |}>,
+  images?: $ReadOnlyArray<{|
+    [key: string]: ?{| [key: string]: ?Thumbnails |},
+  |}>,
   like_count?: number,
   liked_by_me?: boolean,
   marked_helpful_by_me?: boolean,
