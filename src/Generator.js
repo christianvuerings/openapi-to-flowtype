@@ -219,14 +219,16 @@ export default class Generator {
 
               if (propName === "$ref") {
                 return {
-                  "[key: string]": this.definitionTypeName(
+                  "[key: string]": `?${this.definitionTypeName(
                     definition.additionalProperties.$ref
-                  ),
+                  )}`,
                 };
               }
 
               return {
-                "[key: string]": this.typeFor(definition.additionalProperties),
+                "[key: string]": `?${this.typeFor(
+                  definition.additionalProperties
+                )}`,
               };
             },
             {}
