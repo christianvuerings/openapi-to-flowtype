@@ -20,6 +20,7 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 - 0.9.13: support enum numerical literal types
 - 0.9.14: support open ended objects
 - 0.9.15: fix top level `oneOf`
+- 0.9.16: make values of open ended objects optional
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 
