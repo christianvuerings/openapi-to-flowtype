@@ -287,7 +287,7 @@ export default class Generator {
 
   propertyKeyForDefinition(propName: string, definition: Object): string {
     let resolvedPropName =
-      propName.indexOf("-") > 0 || /^\d/.test(propName)
+      propName.includes("-") || propName.includes(":") || /^\d/.test(propName)
         ? `'${propName}'`
         : propName;
     if (this.lowerCamelCase) {
