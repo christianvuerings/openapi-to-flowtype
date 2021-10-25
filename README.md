@@ -82,6 +82,12 @@ will be
 export type Cat = { longLongKey?: string };
 ```
 
+### Generate types for parameters as well
+
+You can enable type generation for parameters with `--parameters`.
+
+`$openapi-to-flowtype <YOUR SWAGGER FILE PATH OR URL> --parameters`
+
 ## Example
 
 swagger file like following
