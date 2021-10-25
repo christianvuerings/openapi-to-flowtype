@@ -21,6 +21,7 @@ export const generator = (specification: Object, file: string) => {
   generator.lowerCamelCase = options.lowerCamelCase || generator.lowerCamelCase;
   generator.suffix = options.suffix || generator.suffix;
   generator.verbose = options.verbose || generator.verbose;
+  generator.parameters = options.parameters || generator.parameters;
 
   const result: string = generator.generate(specification);
 
@@ -45,6 +46,7 @@ program
     "Transform property keys to lower camel case"
   )
   .option("--stdout", "Log output to stdout instead of writing to file")
+  .option("-p --parameters", "Include components/parameters")
   .action(async (file) => {
     try {
       const options = program.opts();

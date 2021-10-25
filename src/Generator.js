@@ -24,6 +24,9 @@ const discriminatorMap = {
   anyOf: "|",
 };
 
+// Parameter components always have suffix PARAM to differentiate with schema
+const PARAMETER_SUFFIX = "Param";
+
 const isPlainObject = (obj) =>
   Object.prototype.toString.call(obj) === "[object Object]";
 
@@ -64,14 +67,20 @@ export default class Generator {
   responses: boolean = false;
   suffix: string = "";
   log: $ReadOnlyArray<$ReadOnlyArray<string>> = [];
+  parameters: boolean = false;
 
   definitionTypeName(ref: string) {
-    const re = /#\/components\/schemas\/(.*)/;
-    const found = ref.match(re);
-    if (!found) {
+    const schemaRe = /#\/components\/schemas\/(.*)/;
+    const parameterRe = /#\/components\/parameters\/(.*)/;
+    const foundSchema = ref.match(schemaRe);
+    const foundParameter = ref.match(parameterRe);
+    if (foundSchema) {
+      return foundSchema[1] + this.suffix;
+    } else if (foundParameter) {
+      return foundParameter[1] + PARAMETER_SUFFIX + this.suffix;
+    } else {
       return "";
     }
-    return found[1] + this.suffix;
   }
 
   appendToLog(...args: $ReadOnlyArray<string>) {
@@ -105,6 +114,15 @@ export default class Generator {
         EMPTY_OBJECT
     )) {
       toProcess.set(key, schema);
+    }
+
+    if (this.parameters) {
+      for (const [key, parameter] of Object.entries(
+        ((specification || EMPTY_OBJECT).components || EMPTY_OBJECT)
+          .parameters || EMPTY_OBJECT
+      )) {
+        toProcess.set(key + PARAMETER_SUFFIX, parameter);
+      }
     }
 
     if (this.responses) {
