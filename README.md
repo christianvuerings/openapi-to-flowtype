@@ -22,7 +22,8 @@ Forked version of https://www.npmjs.com/package/openapi-to-flowtype with the fol
 - 0.9.15: fix top level `oneOf`
 - 0.9.16: make values of open ended objects optional
 - 0.9.17: support keys with `:`
-- 0.9.18: implement `--parameters`
+- 0.9.18: (wrong publish)
+- 0.9.19: implement `--parameters`
 
 `openapi-to-flowtype` is a tool for generating type definitions of [Flow](https://flow.org/) from OpenAPI 3.0 file.
 
