@@ -1,19 +1,23 @@
 components:
   parameters:
     NestedObject:
-      type: "object"
-      required:
-        - name
-      properties:
-        name:
-          type: string
-        nestedProperty:
-          type: object
-          required:
-            - base
-          properties:
-            base:
-              $ref: "#/components/schemas/NestedObject"
+      in: "query"
+      name: "nested_object"
+      required: true
+      schema:
+        type: "object"
+        required:
+          - name
+        properties:
+          name:
+            type: string
+          nestedProperty:
+            type: object
+            required:
+              - base
+            properties:
+              base:
+                $ref: "#/components/schemas/NestedObject"
   schemas:
     NestedObject:
       type: "object"

@@ -121,7 +121,10 @@ export default class Generator {
         ((specification || EMPTY_OBJECT).components || EMPTY_OBJECT)
           .parameters || EMPTY_OBJECT
       )) {
-        toProcess.set(key + PARAMETER_SUFFIX, parameter);
+        // $FlowFixMe
+        if (parameter.schema) {
+          toProcess.set(key + PARAMETER_SUFFIX, parameter.schema);
+        }
       }
     }
 
